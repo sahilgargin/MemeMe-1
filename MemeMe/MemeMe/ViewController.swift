@@ -25,7 +25,7 @@ class ViewController: UIViewController,UINavigationControllerDelegate,UITextFiel
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         tapRec.addTarget(self, action: "tapped")
         tapRec.delegate = self
         view.addGestureRecognizer(tapRec)
@@ -50,6 +50,7 @@ class ViewController: UIViewController,UINavigationControllerDelegate,UITextFiel
         bottomTextField.textAlignment = .Center
         topTextField.delegate = self
         bottomTextField.delegate = self
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -64,12 +65,14 @@ class ViewController: UIViewController,UINavigationControllerDelegate,UITextFiel
         
         self.toolbarItems = [flexiblespace,cameraButton,flexiblespace,pickImageButton,flexiblespace]
         
-        //if an image was selected then enable the share button
-        if(imagePickerView.image == nil){
-            self.navigationController?.setNavigationBarHidden(true, animated: true)
-        }else{
-            self.navigationController?.setNavigationBarHidden(false, animated: true)
-        }
+
+        
+//        //if an image was selected then enable the share button
+//        if(imagePickerView.image == nil){
+//            self.navigationController?.setNavigationBarHidden(true, animated: true)
+//        }else{
+//            self.navigationController?.setNavigationBarHidden(false, animated: true)
+//        }
 
     }
     
@@ -102,7 +105,7 @@ class ViewController: UIViewController,UINavigationControllerDelegate,UITextFiel
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            self.imagePickerView.contentMode = .ScaleAspectFill
+//            self.imagePickerView.contentMode = .ScaleAspectFill
             self.imagePickerView.image = image
         }
 
@@ -196,9 +199,12 @@ class ViewController: UIViewController,UINavigationControllerDelegate,UITextFiel
         activity.completionWithItemsHandler = { (activity, success, items, error) in
                 let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeTabBarController")! as UITabBarController
             
-            self.navigationController!.pushViewController(detailController, animated: true)
+            self.navigationController?.dismissViewControllerAnimated(true, completion: nil)//Dismiss the First-root controller. Clean slate next time.
+            self.navigationController!.presentViewController(detailController, animated: true, completion: nil)
+
             self.navigationController?.setNavigationBarHidden(false, animated: true)
             self.navigationController?.setToolbarHidden(true, animated: false)
+
         }
 
         self.presentViewController(activity, animated: true, completion:nil)

@@ -10,8 +10,15 @@ import UIKit
 
 class MemeCollectionViewController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     var memes: [Meme]!
+    var plusButton = UIBarButtonItem()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+//        plusButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "anotherMeme")
+//        self.navigationItem.hidesBackButton = true
+//        self.navigationItem.rightBarButtonItem = plusButton
+        
+        
         
         let applicationDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
         memes = applicationDelegate.memes
@@ -33,6 +40,10 @@ class MemeCollectionViewController: UIViewController,UICollectionViewDataSource,
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath:NSIndexPath)
     {
+        let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeDetailViewController")! as MemeDetailViewController
+        detailController.meme   = self.memes[indexPath.row]
+        self.navigationController!.pushViewController(detailController, animated: true)
+        
     }
     
     func collectionView(collectionView: UICollectionView,
@@ -48,6 +59,11 @@ class MemeCollectionViewController: UIViewController,UICollectionViewDataSource,
         insetForSectionAtIndex section: Int) -> UIEdgeInsets {
             return sectionInsets
     }
-
+    
+    func anotherMeme(){
+        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("ViewController")! as ViewController
+        self.navigationController!.popToRootViewControllerAnimated(true)
+    }
+    
 }
 

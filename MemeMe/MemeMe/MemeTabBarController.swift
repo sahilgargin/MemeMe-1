@@ -17,6 +17,8 @@ class MemeTabBarController: UITabBarController {
             plusButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "anotherMeme")
             self.navigationItem.hidesBackButton = true
             self.navigationItem.rightBarButtonItem = plusButton
+        
+        self.toolbarItems = [plusButton]
     }
     
     func anotherMeme(){

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="f0k-RS-yvs">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="f0k-RS-yvs">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -259,6 +259,57 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hII-gv-ynd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="779" y="1320"/>
+        </scene>
+        <!--Meme Detail View-->
+        <scene sceneID="vU5-a6-0AM">
+            <objects>
+                <viewController storyboardIdentifier="MemeDetailViewController" title="Meme Detail View" id="BOl-SN-Th0" customClass="MemeDetailViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vCn-5v-r0T"/>
+                        <viewControllerLayoutGuide type="bottom" id="uIE-iT-t53"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hD0-Zi-70R">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QQQ-bM-tER">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="QQQ-bM-tER" firstAttribute="bottom" secondItem="uIE-iT-t53" secondAttribute="top" id="2eb-Hl-bYS"/>
+                            <constraint firstItem="QQQ-bM-tER" firstAttribute="leading" secondItem="hD0-Zi-70R" secondAttribute="leading" id="VdT-kV-yet"/>
+                            <constraint firstItem="QQQ-bM-tER" firstAttribute="top" secondItem="hD0-Zi-70R" secondAttribute="top" id="edt-Sp-Nwg"/>
+                            <constraint firstAttribute="trailing" secondItem="QQQ-bM-tER" secondAttribute="trailing" id="lX3-th-9k3"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Meme" id="hbn-Mo-dlG"/>
+                    <connections>
+                        <outlet property="detailImage" destination="QQQ-bM-tER" id="YUq-z6-EsE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="314-jH-qaf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3541" y="-686"/>
+        </scene>
+        <!--Meme-->
+        <scene sceneID="gxm-Ca-p9A">
+            <objects>
+                <navigationController storyboardIdentifier="navdetailView" title="Meme" automaticallyAdjustsScrollViewInsets="NO" id="cUa-i8-ZOM" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="rMb-hR-4ma">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BOl-SN-Th0" kind="relationship" relationship="rootViewController" id="TXE-cl-8Cp"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="62k-IG-5Aj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2809" y="862"/>
         </scene>
     </scenes>
     <resources>

@@ -16,10 +16,11 @@ class MemeTableViewController: UIViewController,UITableViewDataSource{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        plusButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "anotherMeme")
-//        self.navigationItem.hidesBackButton = true
-//        self.navigationItem.rightBarButtonItem = plusButton
-
+        super.viewDidLoad()
+        plusButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "anotherMeme")
+        self.navigationItem.hidesBackButton = true
+        self.navigationItem.rightBarButtonItem = plusButton
+        
         let applicationDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
         memes = applicationDelegate.memes
     }
@@ -36,15 +37,21 @@ class MemeTableViewController: UIViewController,UITableViewDataSource{
         cell.textLabel?.text = meme.topText! + "-" + meme.bottomText!
         cell.imageView?.image = meme.memedImage
         
-        // If the cell has a detail label, we will put the evil scheme in.
-//        if let detailTextLabel = cell.detailTextLabel {
-//            detailTextLabel.text = "Scheme: \(villain.evilScheme)"
-//        }
-
         return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        }
+        let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeDetailViewController")! as MemeDetailViewController
+        detailController.meme   = self.memes[indexPath.row]
+
+        self.navigationController!.pushViewController(detailController, animated: true)
+    }
+    
+    func anotherMeme(){
+        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("ViewController")! as ViewController
+//        self.navigationController?.popToViewController(controller, animated: true)
+        self.dismissViewControllerAnimated(true, completion: nil)
+        self.navigationController!.pushViewController(controller, animated: true)
+    }
     
 }
