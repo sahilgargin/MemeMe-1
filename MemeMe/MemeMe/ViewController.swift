@@ -61,7 +61,7 @@ class ViewController: UIViewController,UINavigationControllerDelegate,UITextFiel
         
         self.navigationController?.setToolbarHidden(false, animated: true)
 
-        self.navigationItem.hidesBackButton = false
+        self.navigationItem.hidesBackButton = true
         self.navigationItem.rightBarButtonItem = cancelButton
         self.toolbarItems = [flexiblespace,cameraButton,flexiblespace,pickImageButton,flexiblespace]
         
@@ -193,9 +193,9 @@ class ViewController: UIViewController,UINavigationControllerDelegate,UITextFiel
         let objectsToShare = [UIActivityTypePostToFacebook,UIActivityTypePostToTwitter,UIActivityTypeMessage,UIActivityTypeSaveToCameraRoll]
         let activity = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
         activity.completionWithItemsHandler = { (activity, success, items, error) in
-                let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeTabBarController")! as UITabBarController
+                let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeTabBarController")! as MemeTabBarController
             
-            self.navigationController?.dismissViewControllerAnimated(true, completion: nil)//Dismiss the First-root controller. Clean slate next time.
+//            self.navigationController?.dismissViewControllerAnimated(true, completion: nil)//Dismiss the First-root controller. Clean slate next time.
             self.navigationController!.presentViewController(detailController, animated: true, completion: nil)
 
             self.navigationController?.setNavigationBarHidden(false, animated: true)
@@ -208,7 +208,13 @@ class ViewController: UIViewController,UINavigationControllerDelegate,UITextFiel
     }
     
     func tapped(){
-        println("asd")
+        println("tapped")
+    }
+    
+    func cancel(){
+        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)//Dismiss the First-root controller. Clean slate next time.
+        let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeTabBarController")! as MemeTabBarController
+        self.navigationController?.presentViewController(detailController, animated: true,completion:nil)
     }
     
 }

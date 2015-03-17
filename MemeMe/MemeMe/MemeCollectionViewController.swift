@@ -18,13 +18,20 @@ class MemeCollectionViewController: UIViewController,UICollectionViewDataSource,
         self.navigationItem.hidesBackButton = true
         self.navigationItem.rightBarButtonItem = plusButton
         
-        
-        
+        let applicationDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+        memes = applicationDelegate.memes
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+
         let applicationDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
         memes = applicationDelegate.memes
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        println("cell")
+
         return memes.count
     }
     
@@ -37,7 +44,7 @@ class MemeCollectionViewController: UIViewController,UICollectionViewDataSource,
         
         return cell
     }
-    
+
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath:NSIndexPath)
     {
         let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeDetailViewController")! as MemeDetailViewController

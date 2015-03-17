@@ -112,7 +112,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="632"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="tableViewCell" textLabel="IBy-oT-kGJ" detailTextLabel="vh5-tv-rTy" rowHeight="70" style="IBUITableViewCellStyleSubtitle" id="NKv-X2-ryD">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="tableViewCell" textLabel="IBy-oT-kGJ" detailTextLabel="vh5-tv-rTy" rowHeight="70" style="IBUITableViewCellStyleSubtitle" id="NKv-X2-ryD">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NKv-X2-ryD" id="t3S-5P-WDS">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -171,10 +171,10 @@
             </objects>
             <point key="canvasLocation" x="67" y="-507"/>
         </scene>
-        <!--Memes-->
+        <!--Collection View-->
         <scene sceneID="NFR-dD-Mee">
             <objects>
-                <viewController storyboardIdentifier="MemeCollectionViewController" title="Memes" id="yhw-AL-JzK" customClass="MemeCollectionViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MemeCollectionViewController" title="Collection View" id="yhw-AL-JzK" customClass="MemeCollectionViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="DmA-V1-1oJ"/>
                         <viewControllerLayoutGuide type="bottom" id="d0V-gt-Wln"/>
@@ -239,7 +239,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d3q-kf-bfK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2031" y="1320"/>
+            <point key="canvasLocation" x="2063" y="1224"/>
         </scene>
         <!--Collection VIew-->
         <scene sceneID="Jxu-Tz-aeD">

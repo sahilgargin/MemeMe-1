@@ -41,7 +41,6 @@
 		D4690F311AB2CD310022C1CC /* MemeMeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MemeMeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4690F361AB2CD310022C1CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4690F371AB2CD310022C1CC /* MemeMeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemeMeTests.swift; sourceTree = "<group>"; };
-		D4690F411AB2CDF00022C1CC /* MemeMe-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MemeMe-Bridging-Header.h"; sourceTree = "<group>"; };
 		D4690F421AB2CDF10022C1CC /* Meme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meme.swift; sourceTree = "<group>"; };
 		D4690F431AB2CDF10022C1CC /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D4690F441AB2CDF10022C1CC /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -49,6 +48,7 @@
 		D4690F461AB2CDF10022C1CC /* MemeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemeTableViewController.swift; sourceTree = "<group>"; };
 		D4690F471AB2CDF10022C1CC /* MemeCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemeCollectionViewController.swift; sourceTree = "<group>"; };
 		D4690F481AB2CDF10022C1CC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		D4B0315A1AB83A4100DA7B32 /* MemeMe-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MemeMe-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,8 +101,8 @@
 				D4690F481AB2CDF10022C1CC /* Images.xcassets */,
 				D4690F2A1AB2CD310022C1CC /* LaunchScreen.xib */,
 				D4690F1F1AB2CD310022C1CC /* Supporting Files */,
-				D4690F411AB2CDF00022C1CC /* MemeMe-Bridging-Header.h */,
 				9F5363B51AB46D6E001C8F06 /* MemeTabBarController.swift */,
+				D4B0315A1AB83A4100DA7B32 /* MemeMe-Bridging-Header.h */,
 			);
 			path = MemeMe;
 			sourceTree = "<group>";
