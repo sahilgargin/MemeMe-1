@@ -18,6 +18,7 @@ class ViewController: UIViewController,UINavigationControllerDelegate,UITextFiel
     var flexiblespace = UIBarButtonItem()
     var pickImageButton = UIBarButtonItem()
     var shareButton = UIBarButtonItem()
+    var cancelButton = UIBarButtonItem()
     
     var memedImage = UIImage()
     let tapRec = UITapGestureRecognizer()
@@ -33,6 +34,7 @@ class ViewController: UIViewController,UINavigationControllerDelegate,UITextFiel
         pickImageButton = UIBarButtonItem(title: "Album", style: .Done, target: self, action: "pickAnImage:")
         cameraButton = UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: "pickAnImageFromCamera:")
         shareButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "share")
+        cancelButton = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancel")
         flexiblespace = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: self, action: nil)
         let memeTextAttributes = [
             NSStrokeColorAttributeName : UIColor.blackColor(),//TODO: Fill in appropriate UIColor,
@@ -50,7 +52,6 @@ class ViewController: UIViewController,UINavigationControllerDelegate,UITextFiel
         bottomTextField.textAlignment = .Center
         topTextField.delegate = self
         bottomTextField.delegate = self
-        
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -61,19 +62,15 @@ class ViewController: UIViewController,UINavigationControllerDelegate,UITextFiel
         self.navigationController?.setToolbarHidden(false, animated: true)
 
         self.navigationItem.hidesBackButton = false
-        self.navigationItem.leftBarButtonItem = shareButton
-        
+        self.navigationItem.rightBarButtonItem = cancelButton
         self.toolbarItems = [flexiblespace,cameraButton,flexiblespace,pickImageButton,flexiblespace]
         
-
-        
-//        //if an image was selected then enable the share button
-//        if(imagePickerView.image == nil){
-//            self.navigationController?.setNavigationBarHidden(true, animated: true)
-//        }else{
-//            self.navigationController?.setNavigationBarHidden(false, animated: true)
-//        }
-
+        //if an image was selected then enable the share button
+        if(imagePickerView.image == nil){
+            self.navigationItem.leftBarButtonItem = nil
+        }else{
+            self.navigationItem.leftBarButtonItem = shareButton
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -145,7 +142,6 @@ class ViewController: UIViewController,UINavigationControllerDelegate,UITextFiel
             UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name:
             UIKeyboardWillHideNotification, object: nil)
-        
     }
     
     func getKeyboardHeight(notification: NSNotification) -> CGFloat {

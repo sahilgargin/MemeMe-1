@@ -14,9 +14,9 @@ class MemeCollectionViewController: UIViewController,UICollectionViewDataSource,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        plusButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "anotherMeme")
-//        self.navigationItem.hidesBackButton = true
-//        self.navigationItem.rightBarButtonItem = plusButton
+        plusButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "anotherMeme")
+        self.navigationItem.hidesBackButton = true
+        self.navigationItem.rightBarButtonItem = plusButton
         
         
         
@@ -62,7 +62,11 @@ class MemeCollectionViewController: UIViewController,UICollectionViewDataSource,
     
     func anotherMeme(){
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("ViewController")! as ViewController
-        self.navigationController!.popToRootViewControllerAnimated(true)
+        //        self.navigationController?.popToViewController(controller, animated: true)
+        //        println(self.navigationController?.viewControllers)
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
+        self.navigationController!.pushViewController(controller, animated: true)
     }
     
 }

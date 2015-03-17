@@ -50,6 +50,8 @@ class MemeTableViewController: UIViewController,UITableViewDataSource{
     func anotherMeme(){
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("ViewController")! as ViewController
 //        self.navigationController?.popToViewController(controller, animated: true)
+//        println(self.navigationController?.viewControllers)
+
         self.dismissViewControllerAnimated(true, completion: nil)
         self.navigationController!.pushViewController(controller, animated: true)
     }
