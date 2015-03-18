@@ -37,8 +37,6 @@ class MemeCollectionViewController: UICollectionViewController,UICollectionViewD
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        println("cell")
-
         return memes.count
     }
     
@@ -90,12 +88,16 @@ class MemeCollectionViewController: UICollectionViewController,UICollectionViewD
     }
 
     func anotherMeme(){
-        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("ViewController")! as ViewController
+//        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("ViewController")! as ViewController
         //        self.navigationController?.popToViewController(controller, animated: true)
         //        println(self.navigationController?.viewControllers)
         
+//        self.dismissViewControllerAnimated(true, completion: nil)
+//        self.navigationController!.pushViewController(controller, animated: true)
+        
         self.dismissViewControllerAnimated(true, completion: nil)
-        self.navigationController!.pushViewController(controller, animated: true)
+        self.performSegueWithIdentifier("anotherMeme", sender: self)
+
     }
     
     func edit(){

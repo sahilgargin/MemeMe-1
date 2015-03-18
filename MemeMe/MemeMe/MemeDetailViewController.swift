@@ -27,12 +27,22 @@ class MemeDetailViewController: UIViewController,UINavigationControllerDelegate 
         self.detailImage.image = meme.memedImage
 
     }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "edit"{
+            if let a = segue.destinationViewController as? ViewController{
+                a.meme = self.meme
+                println(meme.image.description)
+                }
+            }
+    }
     
     func editMeme(){
-        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)//Dismiss the First-root controller. Clean slate next time.
-        let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("ViewController")! as ViewController
-        detailController.meme = self.meme
-        self.navigationController?.pushViewController(detailController, animated: true)
+        self.dismissViewControllerAnimated(true, completion: nil)
+        self.performSegueWithIdentifier("edit", sender: self)
+        
+//        self.navigationController?.pushViewController(detailController, animated: true)
+//        self.navigationController?.presentViewController(detailController, animated: true, completion: nil)
     }
     
     func deleteMeme(){

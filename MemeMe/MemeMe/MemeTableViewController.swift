@@ -35,7 +35,6 @@ class MemeTableViewController: UITableViewController,UITableViewDataSource{
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        println("table")
         return memes.count
     }
 
@@ -51,11 +50,11 @@ class MemeTableViewController: UITableViewController,UITableViewDataSource{
         
         return cell
     }
+
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeDetailViewController")! as MemeDetailViewController
-        
         detailController.meme   = self.memes[indexPath.row]
-
+        
         self.navigationController!.pushViewController(detailController, animated: true)
     }
     
@@ -67,10 +66,14 @@ class MemeTableViewController: UITableViewController,UITableViewDataSource{
     
     //Button Action. Goes to the Edit View to create another meme.
     func anotherMeme(){
-        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)//Dismiss the First-root controller. Clean slate next time.
-        let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("ViewController")! as ViewController
-        
-        self.navigationController?.pushViewController(detailController, animated: true)
+//        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)//Dismiss the First-root controller. Clean slate next time.
+//        let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("ViewController")! as ViewController
+//        
+//        self.navigationController?.pushViewController(detailController, animated: true)
+//        
+        self.dismissViewControllerAnimated(true, completion: nil)
+        self.performSegueWithIdentifier("anotherMeme", sender: self)
+
     }
     
     

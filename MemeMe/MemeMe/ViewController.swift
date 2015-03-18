@@ -54,25 +54,31 @@ class ViewController: UIViewController,UINavigationControllerDelegate,UITextFiel
         bottomTextField.textAlignment = .Center
         topTextField.delegate = self
         bottomTextField.delegate = self
-        imagePickerView.image = meme.image
     }
+    
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
-        
-        self.navigationController?.setToolbarHidden(false, animated: true)
 
+        //if an image was selected then enable the share button
+        
+        self.navigationItem.leftBarButtonItem = shareButton
+        topTextField.text = meme.topText
+        bottomTextField.text = meme.bottomText
+        imagePickerView.image = meme.image
+        
+        println(meme.image.description)
+        if(imagePickerView.image?.size == UIImage().size){
+            shareButton.enabled = false
+        }else{
+            shareButton.enabled = true
+        }
+
+        self.navigationController?.setToolbarHidden(false, animated: true)
         self.navigationItem.hidesBackButton = true
         self.navigationItem.rightBarButtonItem = cancelButton
         self.toolbarItems = [flexiblespace,cameraButton,flexiblespace,pickImageButton,flexiblespace]
         
-        //if an image was selected then enable the share button
-        if(imagePickerView.image == nil){
-            self.navigationItem.leftBarButtonItem = nil
-        }else{
-            self.navigationItem.leftBarButtonItem = shareButton
-        }
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -106,6 +112,9 @@ class ViewController: UIViewController,UINavigationControllerDelegate,UITextFiel
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
 //            self.imagePickerView.contentMode = .ScaleAspectFill
             self.imagePickerView.image = image
+            meme.image = image
+            meme.topText = self.topTextField.text
+            meme.bottomText = self.bottomTextField.text
         }
 
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -185,7 +194,7 @@ class ViewController: UIViewController,UINavigationControllerDelegate,UITextFiel
         //Create the meme
         memedImage = generateMemedImage()
         var meme = Meme(topText:topTextField.text!, bottomText: bottomTextField.text!,  image: imagePickerView.image!,  memedImage: memedImage)
-
+        self.meme = meme
         (UIApplication.sharedApplication().delegate as AppDelegate).memes.append(meme)
         
     }
@@ -204,10 +213,13 @@ class ViewController: UIViewController,UINavigationControllerDelegate,UITextFiel
             self.navigationController?.setToolbarHidden(true, animated: false)
 
             //Reset View controller display.
+            self.meme.topText = "TOP"
+            self.meme.bottomText = "BOTTOM"
+            self.meme.image = UIImage()
             self.topTextField.text = "TOP"
             self.bottomTextField.text = "BOTTOM"
             self.imagePickerView.image = nil
-
+            
         }
 
         self.presentViewController(activity, animated: true, completion:nil)
