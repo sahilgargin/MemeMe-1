@@ -8,36 +8,41 @@
 
 import UIKit
 
-class MemeTableViewController: UIViewController,UITableViewDataSource{
+class MemeTableViewController: UITableViewController,UITableViewDataSource{
     var memes: [Meme]!
     var plusButton = UIBarButtonItem()
-    
+    var editButton = UIBarButtonItem()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         plusButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "anotherMeme")
+        editButton = UIBarButtonItem(title: "Edit", style: .Done, target: self, action: "edit")
+
         self.navigationItem.hidesBackButton = true
         self.navigationItem.rightBarButtonItem = plusButton
-        
+        self.navigationItem.leftBarButtonItem = editButton
         let applicationDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
         memes = applicationDelegate.memes
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
-        self.setEditing(true, animated: true)
         let applicationDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
         memes = applicationDelegate.memes
+        self.editing = false
+        self.tableView.reloadData()
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         println("table")
         return memes.count
     }
 
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true}
+
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("tableViewCell") as UITableViewCell
         let meme = self.memes[indexPath.row]
         // Set the name and image
@@ -46,11 +51,18 @@ class MemeTableViewController: UIViewController,UITableViewDataSource{
         
         return cell
     }
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeDetailViewController")! as MemeDetailViewController
+        
         detailController.meme   = self.memes[indexPath.row]
 
         self.navigationController!.pushViewController(detailController, animated: true)
+    }
+    
+    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+        var itemToMove = memes[fromIndexPath.row]
+        memes.removeAtIndex(fromIndexPath.row)
+        memes.insert(itemToMove, atIndex: toIndexPath.row)
     }
     
     //Button Action. Goes to the Edit View to create another meme.
@@ -59,6 +71,23 @@ class MemeTableViewController: UIViewController,UITableViewDataSource{
         let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("ViewController")! as ViewController
         
         self.navigationController?.pushViewController(detailController, animated: true)
+    }
+    
+    
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        let applicationDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+        memes.removeAtIndex(indexPath.row)
+
+        applicationDelegate.memes = memes
+        self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+    }
+    
+    func edit(){
+        self.editing = !self.editing
     }
     
 }

@@ -8,15 +8,21 @@
 
 import UIKit
 
-class MemeCollectionViewController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
+class MemeCollectionViewController: UICollectionViewController,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     var memes: [Meme]!
     var plusButton = UIBarButtonItem()
+    var editButton = UIBarButtonItem()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         plusButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "anotherMeme")
+        editButton = UIBarButtonItem(title: "Edit", style: .Done, target: self, action: "edit")
+
         self.navigationItem.hidesBackButton = true
         self.navigationItem.rightBarButtonItem = plusButton
+        self.navigationItem.leftBarButtonItem = editButton
+        
+        self.editing = false
         
         let applicationDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
         memes = applicationDelegate.memes
@@ -27,17 +33,23 @@ class MemeCollectionViewController: UIViewController,UICollectionViewDataSource,
 
         let applicationDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
         memes = applicationDelegate.memes
+                self.collectionView?.reloadData()
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         println("cell")
 
         return memes.count
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("MemeCollectionViewCell", forIndexPath: indexPath) as MemeCollectionViewCell
         let meme = self.memes[indexPath.row]
+        if(self.editing){
+            cell.deleteImageView.hidden = false
+        }else{
+            cell.deleteImageView.hidden = true
+        }
         
         // Set the name and image
         cell.memeImageView?.image = meme.memedImage
@@ -45,11 +57,19 @@ class MemeCollectionViewController: UIViewController,UICollectionViewDataSource,
         return cell
     }
 
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath:NSIndexPath)
-    {
-        let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeDetailViewController")! as MemeDetailViewController
-        detailController.meme   = self.memes[indexPath.row]
-        self.navigationController!.pushViewController(detailController, animated: true)
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath:NSIndexPath)
+    {   if(!self.editing){
+            let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeDetailViewController")! as MemeDetailViewController
+            detailController.meme   = self.memes[indexPath.row]
+            self.navigationController!.pushViewController(detailController, animated: true)
+        }else{
+            let applicationDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+            memes.removeAtIndex(indexPath.row)
+            
+            applicationDelegate.memes = memes
+            self.collectionView?.reloadData()
+        }
+
         
     }
     
@@ -59,14 +79,16 @@ class MemeCollectionViewController: UIViewController,UICollectionViewDataSource,
             return CGFloat(10.0)
     }
     
-    private let sectionInsets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return CGFloat(10.0)
+    }
     
     func collectionView(collectionView: UICollectionView!,
         layout collectionViewLayout: UICollectionViewLayout!,
         insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-            return sectionInsets
+            return UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
     }
-    
+
     func anotherMeme(){
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("ViewController")! as ViewController
         //        self.navigationController?.popToViewController(controller, animated: true)
@@ -76,5 +98,10 @@ class MemeCollectionViewController: UIViewController,UICollectionViewDataSource,
         self.navigationController!.pushViewController(controller, animated: true)
     }
     
+    func edit(){
+            self.editing = !self.editing
+            self.collectionView?.reloadData()
+    }
+
 }
 

@@ -22,7 +22,7 @@ class ViewController: UIViewController,UINavigationControllerDelegate,UITextFiel
     
     var memedImage = UIImage()
     let tapRec = UITapGestureRecognizer()
-
+    var meme = Meme(topText: "TOP", bottomText: "BOTTOM", image: UIImage() , memedImage: UIImage())
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,23 +36,25 @@ class ViewController: UIViewController,UINavigationControllerDelegate,UITextFiel
         shareButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "share")
         cancelButton = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancel")
         flexiblespace = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: self, action: nil)
+      
         let memeTextAttributes = [
-            NSStrokeColorAttributeName : UIColor.blackColor(),//TODO: Fill in appropriate UIColor,
-            NSForegroundColorAttributeName : UIColor.whiteColor(), //TODO: Fill in UIColor,
-            NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-            NSStrokeWidthAttributeName : -3//TODO: Fill in appropriate Float
+            NSStrokeColorAttributeName : UIColor.blackColor(),
+            NSForegroundColorAttributeName : UIColor.whiteColor(),
+            NSFontAttributeName : UIFont(name: "Impact", size: 40)!, //Uses Custom Impact font.
+            NSStrokeWidthAttributeName : -3
         ]
+        
         topTextField.backgroundColor = UIColor.clearColor()
         bottomTextField.backgroundColor = UIColor.clearColor()
         topTextField.defaultTextAttributes = memeTextAttributes
         bottomTextField.defaultTextAttributes = memeTextAttributes
-        topTextField.text = "TOP"
+        topTextField.text = meme.topText
         topTextField.textAlignment = .Center
-        bottomTextField.text = "BOTTOM"
+        bottomTextField.text = meme.bottomText
         bottomTextField.textAlignment = .Center
         topTextField.delegate = self
         bottomTextField.delegate = self
-        // Do any additional setup after loading the view, typically from a nib.
+        imagePickerView.image = meme.image
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -200,6 +202,11 @@ class ViewController: UIViewController,UINavigationControllerDelegate,UITextFiel
 
             self.navigationController?.setNavigationBarHidden(false, animated: true)
             self.navigationController?.setToolbarHidden(true, animated: false)
+
+            //Reset View controller display.
+            self.topTextField.text = "TOP"
+            self.bottomTextField.text = "BOTTOM"
+            self.imagePickerView.image = nil
 
         }
 

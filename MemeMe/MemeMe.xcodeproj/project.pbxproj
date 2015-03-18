@@ -10,6 +10,7 @@
 		9F5363B61AB46D6E001C8F06 /* MemeTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5363B51AB46D6E001C8F06 /* MemeTabBarController.swift */; };
 		9F5363B81AB483BB001C8F06 /* MemeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5363B71AB483BB001C8F06 /* MemeCollectionViewCell.swift */; };
 		9F6720521AB72F4000C9341D /* MemeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6720511AB72F4000C9341D /* MemeDetailViewController.swift */; };
+		D42295291AB9ABD800C7292C /* Impact.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D42295271AB9A84900C7292C /* Impact.ttf */; };
 		D4690F2C1AB2CD310022C1CC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4690F2A1AB2CD310022C1CC /* LaunchScreen.xib */; };
 		D4690F381AB2CD310022C1CC /* MemeMeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4690F371AB2CD310022C1CC /* MemeMeTests.swift */; };
 		D4690F491AB2CDF10022C1CC /* Meme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4690F421AB2CDF10022C1CC /* Meme.swift */; };
@@ -35,6 +36,8 @@
 		9F5363B51AB46D6E001C8F06 /* MemeTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemeTabBarController.swift; sourceTree = "<group>"; };
 		9F5363B71AB483BB001C8F06 /* MemeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemeCollectionViewCell.swift; sourceTree = "<group>"; };
 		9F6720511AB72F4000C9341D /* MemeDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemeDetailViewController.swift; sourceTree = "<group>"; };
+		D42295271AB9A84900C7292C /* Impact.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Impact.ttf; sourceTree = "<group>"; };
+		D42295281AB9A91200C7292C /* Impact2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Impact2.ttf; sourceTree = "<group>"; };
 		D4690F1C1AB2CD310022C1CC /* MemeMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemeMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4690F201AB2CD310022C1CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4690F2B1AB2CD310022C1CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -110,6 +113,8 @@
 		D4690F1F1AB2CD310022C1CC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D42295281AB9A91200C7292C /* Impact2.ttf */,
+				D42295271AB9A84900C7292C /* Impact.ttf */,
 				D4690F201AB2CD310022C1CC /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -212,6 +217,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D42295291AB9ABD800C7292C /* Impact.ttf in Resources */,
 				D4690F4F1AB2CDF10022C1CC /* Images.xcassets in Resources */,
 				D4690F2C1AB2CD310022C1CC /* LaunchScreen.xib in Resources */,
 				D4690F4B1AB2CDF10022C1CC /* Main.storyboard in Resources */,

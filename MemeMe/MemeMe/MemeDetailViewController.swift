@@ -29,7 +29,10 @@ class MemeDetailViewController: UIViewController,UINavigationControllerDelegate 
     }
     
     func editMeme(){
-        
+        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)//Dismiss the First-root controller. Clean slate next time.
+        let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("ViewController")! as ViewController
+        detailController.meme = self.meme
+        self.navigationController?.pushViewController(detailController, animated: true)
     }
     
     func deleteMeme(){
