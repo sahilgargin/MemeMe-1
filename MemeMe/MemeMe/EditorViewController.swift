@@ -230,7 +230,7 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
     }
     
     func cancel(){
-        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)//Dismiss the First-root controller. Clean slate next time.
+        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)//Dismiss the First-root controller.
         let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeTabBarController")! as MemeTabBarController
         self.navigationController?.presentViewController(detailController, animated: true,completion:nil)
     }
