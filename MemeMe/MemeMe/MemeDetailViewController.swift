@@ -30,17 +30,17 @@ class MemeDetailViewController: UIViewController,UINavigationControllerDelegate 
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "edit"{
-            if let a = segue.destinationViewController as? ViewController{
-                a.meme = self.meme
-                println(meme.image.description)
+            if let a = segue.destinationViewController as? EditorViewController{
+                let applicationDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+                applicationDelegate.editorMeme = self.meme
                 }
             }
     }
     
+    
     func editMeme(){
         self.dismissViewControllerAnimated(true, completion: nil)
         self.performSegueWithIdentifier("edit", sender: self)
-        
 //        self.navigationController?.pushViewController(detailController, animated: true)
 //        self.navigationController?.presentViewController(detailController, animated: true, completion: nil)
     }

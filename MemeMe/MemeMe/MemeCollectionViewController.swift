@@ -33,7 +33,7 @@ class MemeCollectionViewController: UICollectionViewController,UICollectionViewD
 
         let applicationDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
         memes = applicationDelegate.memes
-                self.collectionView?.reloadData()
+        self.collectionView?.reloadData()
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -49,14 +49,14 @@ class MemeCollectionViewController: UICollectionViewController,UICollectionViewD
             cell.deleteImageView.hidden = true
         }
         
-        // Set the name and image
+        // Set the image
         cell.memeImageView?.image = meme.memedImage
         
         return cell
     }
 
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath:NSIndexPath)
-    {   if(!self.editing){
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath:NSIndexPath){
+        if(!self.editing){
             let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeDetailViewController")! as MemeDetailViewController
             detailController.meme   = self.memes[indexPath.row]
             self.navigationController!.pushViewController(detailController, animated: true)
@@ -67,8 +67,6 @@ class MemeCollectionViewController: UICollectionViewController,UICollectionViewD
             applicationDelegate.memes = memes
             self.collectionView?.reloadData()
         }
-
-        
     }
     
     func collectionView(collectionView: UICollectionView,
@@ -97,12 +95,16 @@ class MemeCollectionViewController: UICollectionViewController,UICollectionViewD
         
         self.dismissViewControllerAnimated(true, completion: nil)
         self.performSegueWithIdentifier("anotherMeme", sender: self)
+        
+        //Reset Editor View.
+        let applicationDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+        applicationDelegate.editorMeme = Meme(topText: "TOP", bottomText: "BOTTOM", image: UIImage(), memedImage: UIImage())
 
     }
     
     func edit(){
-            self.editing = !self.editing
-            self.collectionView?.reloadData()
+        self.editing = !self.editing
+        self.collectionView?.reloadData()
     }
 
 }

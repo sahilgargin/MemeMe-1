@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  EditorViewController
 //  imagepicker
 //
 //  Created by Spiros Raptis on 09/03/2015.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController,UINavigationControllerDelegate,UITextFieldDelegate,UIImagePickerControllerDelegate,UIGestureRecognizerDelegate {
+class EditorViewController: UIViewController,UINavigationControllerDelegate,UITextFieldDelegate,UIImagePickerControllerDelegate,UIGestureRecognizerDelegate {
 
     @IBOutlet weak var imagePickerView: UIImageView!
     @IBOutlet weak var topTextField: UITextField!
@@ -22,7 +22,7 @@ class ViewController: UIViewController,UINavigationControllerDelegate,UITextFiel
     
     var memedImage = UIImage()
     let tapRec = UITapGestureRecognizer()
-    var meme = Meme(topText: "TOP", bottomText: "BOTTOM", image: UIImage() , memedImage: UIImage())
+    var meme:Meme!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,26 +48,31 @@ class ViewController: UIViewController,UINavigationControllerDelegate,UITextFiel
         bottomTextField.backgroundColor = UIColor.clearColor()
         topTextField.defaultTextAttributes = memeTextAttributes
         bottomTextField.defaultTextAttributes = memeTextAttributes
-        topTextField.text = meme.topText
         topTextField.textAlignment = .Center
-        bottomTextField.text = meme.bottomText
         bottomTextField.textAlignment = .Center
         topTextField.delegate = self
         bottomTextField.delegate = self
+        
+        if(!UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)){
+            cameraButton.enabled = false
+        }
     }
     
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-
-        //if an image was selected then enable the share button
         
+        //get the current meme for editing purposes
+        let applicationDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+        self.meme = applicationDelegate.editorMeme
+
+
         self.navigationItem.leftBarButtonItem = shareButton
         topTextField.text = meme.topText
         bottomTextField.text = meme.bottomText
         imagePickerView.image = meme.image
         
-        println(meme.image.description)
+        //if an image was selected then enable the share button
         if(imagePickerView.image?.size == UIImage().size){
             shareButton.enabled = false
         }else{
@@ -98,8 +103,7 @@ class ViewController: UIViewController,UINavigationControllerDelegate,UITextFiel
         if (UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)){
             imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
             self.presentViewController(imagePicker, animated: true, completion: nil)
-        }
-    }
+        }    }
     
     @IBAction func pickAnImage(sender: AnyObject) {
         let imagePicker = UIImagePickerController()
@@ -110,7 +114,6 @@ class ViewController: UIViewController,UINavigationControllerDelegate,UITextFiel
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-//            self.imagePickerView.contentMode = .ScaleAspectFill
             self.imagePickerView.image = image
             meme.image = image
             meme.topText = self.topTextField.text
@@ -211,14 +214,10 @@ class ViewController: UIViewController,UINavigationControllerDelegate,UITextFiel
 
             self.navigationController?.setNavigationBarHidden(false, animated: true)
             self.navigationController?.setToolbarHidden(true, animated: false)
-
-            //Reset View controller display.
-            self.meme.topText = "TOP"
-            self.meme.bottomText = "BOTTOM"
-            self.meme.image = UIImage()
-            self.topTextField.text = "TOP"
-            self.bottomTextField.text = "BOTTOM"
-            self.imagePickerView.image = nil
+            
+            //Reset Editor View.
+            let applicationDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+            applicationDelegate.editorMeme = Meme(topText: "TOP", bottomText: "BOTTOM", image: UIImage(), memedImage: UIImage())
             
         }
 

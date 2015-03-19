@@ -46,8 +46,9 @@ class MemeTableViewController: UITableViewController,UITableViewDataSource{
         let meme = self.memes[indexPath.row]
         // Set the name and image
         cell.textLabel?.text = meme.topText! + "-" + meme.bottomText!
+        cell.detailTextLabel?.text = ""
         cell.imageView?.image = meme.memedImage
-        
+
         return cell
     }
 
@@ -62,6 +63,16 @@ class MemeTableViewController: UITableViewController,UITableViewDataSource{
         var itemToMove = memes[fromIndexPath.row]
         memes.removeAtIndex(fromIndexPath.row)
         memes.insert(itemToMove, atIndex: toIndexPath.row)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "anotherMeme"{
+            if let a = segue.destinationViewController as? EditorViewController{
+                //Reset Editor View.
+                let applicationDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+                applicationDelegate.editorMeme = Meme(topText: "TOP", bottomText: "BOTTOM", image: UIImage(), memedImage: UIImage())
+            }
+        }
     }
     
     //Button Action. Goes to the Edit View to create another meme.
