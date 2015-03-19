@@ -26,7 +26,12 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        var fixedWidth = self.view.frame.size.width;
+        var fixedHeight = self.view.frame.size.height;
+        
+        self.navigationController?.view.backgroundColor = UIColor.whiteColor() //When zooming the background should be white.
+        
+        bottomTextField.sizeToFit()
         tapRec.addTarget(self, action: "tapped")
         tapRec.delegate = self
         view.addGestureRecognizer(tapRec)
@@ -58,6 +63,12 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
         }
     }
     
+    //For Image croping
+    @IBAction func scaleImage(sender: UIPinchGestureRecognizer) {
+        self.imagePickerView.transform = CGAffineTransformScale(self.imagePickerView.transform, sender.scale, sender.scale)
+        sender.scale = 1
+
+    }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -174,7 +185,7 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
     
     func generateMemedImage() -> UIImage {
         
-        // TODO: Hide toolbar and navbar
+        //Hide toolbar and navbar
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.navigationController?.setToolbarHidden(true, animated: false)
 
@@ -186,7 +197,7 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
         UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        // TODO:  Show toolbar and navbar
+        // Show toolbar and navbar
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.navigationController?.setToolbarHidden(false, animated: false)
         

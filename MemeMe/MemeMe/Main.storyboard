@@ -17,19 +17,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4F8-2h-BUW">
+                            <imageView autoresizesSubviews="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4F8-2h-BUW">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="Pte-X4-ooE" appends="YES" id="wXQ-hf-8AX"/>
+                                </connections>
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="BOTTOM" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cvT-b4-MqJ">
                                 <rect key="frame" x="16" y="413" width="568" height="130"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="130" id="K8J-fv-8Ua"/>
+                                    <constraint firstAttribute="height" constant="130" id="5ak-Xm-QMh"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TOP" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Aoh-hl-rHS">
                                 <rect key="frame" x="16" y="72" width="568" height="74"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="74" id="9Gi-vs-lwx"/>
+                                </constraints>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
@@ -37,18 +44,23 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="4F8-2h-BUW" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="1Hj-gK-2Yk"/>
-                            <constraint firstItem="Aoh-hl-rHS" firstAttribute="top" secondItem="dmC-9R-7NM" secondAttribute="bottom" constant="8" symbolic="YES" id="D6K-kg-C3E"/>
-                            <constraint firstItem="4F8-2h-BUW" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Mk4-Uh-mdP"/>
-                            <constraint firstItem="RUA-ND-Ogi" firstAttribute="top" secondItem="cvT-b4-MqJ" secondAttribute="bottom" constant="8" symbolic="YES" id="TKQ-Mp-wen"/>
-                            <constraint firstItem="4F8-2h-BUW" firstAttribute="top" secondItem="Aoh-hl-rHS" secondAttribute="bottom" constant="-146" id="hAJ-1C-Udo"/>
-                            <constraint firstItem="Aoh-hl-rHS" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="hPE-8G-8T3"/>
-                            <constraint firstItem="Aoh-hl-rHS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="k8z-6n-WYU"/>
-                            <constraint firstItem="cvT-b4-MqJ" firstAttribute="leading" secondItem="Aoh-hl-rHS" secondAttribute="leading" id="lCp-y7-kdn"/>
-                            <constraint firstAttribute="trailing" secondItem="4F8-2h-BUW" secondAttribute="trailing" id="oT2-Q4-INE"/>
-                            <constraint firstItem="cvT-b4-MqJ" firstAttribute="trailing" secondItem="Aoh-hl-rHS" secondAttribute="trailing" id="pRW-Tq-HLu"/>
-                            <constraint firstItem="4F8-2h-BUW" firstAttribute="bottom" secondItem="RUA-ND-Ogi" secondAttribute="top" id="zRJ-Mw-Uwo"/>
+                            <constraint firstItem="4F8-2h-BUW" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="1aO-0I-p5h"/>
+                            <constraint firstItem="4F8-2h-BUW" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="4iy-l3-6ob"/>
+                            <constraint firstItem="Aoh-hl-rHS" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="5bj-eB-0tq"/>
+                            <constraint firstItem="RUA-ND-Ogi" firstAttribute="top" secondItem="cvT-b4-MqJ" secondAttribute="bottom" constant="57" id="6fo-wh-Vn2"/>
+                            <constraint firstItem="cvT-b4-MqJ" firstAttribute="trailing" secondItem="Aoh-hl-rHS" secondAttribute="trailing" id="IeF-bc-VDh"/>
+                            <constraint firstItem="Aoh-hl-rHS" firstAttribute="top" secondItem="dmC-9R-7NM" secondAttribute="bottom" constant="8" symbolic="YES" id="KfZ-pE-YDs"/>
+                            <constraint firstItem="RUA-ND-Ogi" firstAttribute="top" secondItem="4F8-2h-BUW" secondAttribute="bottom" constant="49" id="ZZF-Tm-vXy"/>
+                            <constraint firstItem="Aoh-hl-rHS" firstAttribute="top" secondItem="dmC-9R-7NM" secondAttribute="bottom" constant="8" id="eu9-QN-3Qu"/>
+                            <constraint firstItem="cvT-b4-MqJ" firstAttribute="leading" secondItem="Aoh-hl-rHS" secondAttribute="leading" id="j9y-sC-uN6"/>
+                            <constraint firstItem="Aoh-hl-rHS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="lgb-qP-lVQ"/>
+                            <constraint firstItem="cvT-b4-MqJ" firstAttribute="centerX" secondItem="4F8-2h-BUW" secondAttribute="centerX" id="vKW-7U-uuc"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="eu9-QN-3Qu"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="fkN-XC-Zdt"/>
                     <connections>
@@ -58,8 +70,13 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <pinchGestureRecognizer id="Pte-X4-ooE">
+                    <connections>
+                        <action selector="scaleImage:" destination="BYZ-38-t0r" id="iEV-Ak-GJK"/>
+                    </connections>
+                </pinchGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1296" y="-643"/>
+            <point key="canvasLocation" x="1190" y="-952"/>
         </scene>
         <!--Table View-->
         <scene sceneID="iQR-bv-9yU">
@@ -252,7 +269,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QQQ-bM-tER">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QQQ-bM-tER">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
                         </subviews>
@@ -299,6 +316,6 @@
         <image name="table_30x30" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="tma-gt-zIq"/>
+        <segue reference="oPt-Jd-zNJ"/>
     </inferredMetricsTieBreakers>
 </document>
