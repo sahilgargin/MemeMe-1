@@ -17,25 +17,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView autoresizesSubviews="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4F8-2h-BUW">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
+                            <imageView autoresizesSubviews="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4F8-2h-BUW">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="Pte-X4-ooE" appends="YES" id="wXQ-hf-8AX"/>
                                 </connections>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="BOTTOM" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cvT-b4-MqJ">
-                                <rect key="frame" x="16" y="413" width="568" height="130"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="BOTTOM" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cvT-b4-MqJ">
+                                <rect key="frame" x="16" y="450" width="568" height="130"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="130" id="5ak-Xm-QMh"/>
+                                    <constraint firstAttribute="height" constant="130" id="HTN-Ef-Bmp"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TOP" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Aoh-hl-rHS">
-                                <rect key="frame" x="16" y="72" width="568" height="74"/>
+                                <rect key="frame" x="16" y="94" width="568" height="130"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="74" id="9Gi-vs-lwx"/>
+                                    <constraint firstAttribute="height" constant="130" id="2me-qa-2KQ"/>
                                 </constraints>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
@@ -44,21 +44,25 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="4F8-2h-BUW" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="1aO-0I-p5h"/>
-                            <constraint firstItem="4F8-2h-BUW" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="4iy-l3-6ob"/>
+                            <constraint firstItem="Aoh-hl-rHS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="0Ge-O8-rBY"/>
+                            <constraint firstItem="RUA-ND-Ogi" firstAttribute="top" secondItem="cvT-b4-MqJ" secondAttribute="bottom" constant="20" id="2Nk-n5-QYi"/>
                             <constraint firstItem="Aoh-hl-rHS" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="5bj-eB-0tq"/>
-                            <constraint firstItem="RUA-ND-Ogi" firstAttribute="top" secondItem="cvT-b4-MqJ" secondAttribute="bottom" constant="57" id="6fo-wh-Vn2"/>
-                            <constraint firstItem="cvT-b4-MqJ" firstAttribute="trailing" secondItem="Aoh-hl-rHS" secondAttribute="trailing" id="IeF-bc-VDh"/>
-                            <constraint firstItem="Aoh-hl-rHS" firstAttribute="top" secondItem="dmC-9R-7NM" secondAttribute="bottom" constant="8" symbolic="YES" id="KfZ-pE-YDs"/>
-                            <constraint firstItem="RUA-ND-Ogi" firstAttribute="top" secondItem="4F8-2h-BUW" secondAttribute="bottom" constant="49" id="ZZF-Tm-vXy"/>
+                            <constraint firstAttribute="trailing" secondItem="4F8-2h-BUW" secondAttribute="trailing" id="AjH-Mh-yf3"/>
+                            <constraint firstItem="4F8-2h-BUW" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="CVt-b8-giT"/>
+                            <constraint firstItem="cvT-b4-MqJ" firstAttribute="leading" secondItem="Aoh-hl-rHS" secondAttribute="leading" id="F88-Tn-TX9"/>
+                            <constraint firstItem="Aoh-hl-rHS" firstAttribute="trailing" secondItem="cvT-b4-MqJ" secondAttribute="trailing" id="GJC-nJ-7Dw"/>
+                            <constraint firstItem="Aoh-hl-rHS" firstAttribute="top" secondItem="dmC-9R-7NM" secondAttribute="bottom" constant="30" id="SWu-8H-z4c"/>
                             <constraint firstItem="Aoh-hl-rHS" firstAttribute="top" secondItem="dmC-9R-7NM" secondAttribute="bottom" constant="8" id="eu9-QN-3Qu"/>
-                            <constraint firstItem="cvT-b4-MqJ" firstAttribute="leading" secondItem="Aoh-hl-rHS" secondAttribute="leading" id="j9y-sC-uN6"/>
                             <constraint firstItem="Aoh-hl-rHS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="lgb-qP-lVQ"/>
-                            <constraint firstItem="cvT-b4-MqJ" firstAttribute="centerX" secondItem="4F8-2h-BUW" secondAttribute="centerX" id="vKW-7U-uuc"/>
+                            <constraint firstItem="4F8-2h-BUW" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="mhl-cs-vZa"/>
+                            <constraint firstItem="Aoh-hl-rHS" firstAttribute="centerX" secondItem="4F8-2h-BUW" secondAttribute="centerX" id="tIP-cd-vMA"/>
+                            <constraint firstItem="4F8-2h-BUW" firstAttribute="bottom" secondItem="RUA-ND-Ogi" secondAttribute="top" id="uNq-vt-cZ1"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="5bj-eB-0tq"/>
                                 <exclude reference="eu9-QN-3Qu"/>
+                                <exclude reference="lgb-qP-lVQ"/>
                             </mask>
                         </variation>
                     </view>
@@ -76,7 +80,7 @@
                     </connections>
                 </pinchGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2582" y="-408"/>
+            <point key="canvasLocation" x="2659" y="-468"/>
         </scene>
         <!--Table View-->
         <scene sceneID="iQR-bv-9yU">
@@ -125,7 +129,7 @@
         <!--Sent Memes-->
         <scene sceneID="1Cj-2A-7z2">
             <objects>
-                <tabBarController storyboardIdentifier="MemeTabBarController" title="Sent Memes" id="oTQ-bt-KyW" customClass="MemeTabBarController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MemeTabBarController" title="Sent Memes" id="oTQ-bt-KyW" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="52h-Oh-ndq">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
@@ -174,7 +178,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="058-X9-rkb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="67" y="-507"/>
+            <point key="canvasLocation" x="63" y="-707"/>
         </scene>
         <!--Sent Memes-->
         <scene sceneID="YLU-tZ-mH9">

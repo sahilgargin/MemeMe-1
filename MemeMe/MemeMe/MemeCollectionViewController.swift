@@ -1,6 +1,5 @@
 //
 //  MemeCollectionViewController.swift
-//  imagepicker
 //
 //  Created by Spiros Raptis on 11/03/2015.
 //  Copyright (c) 2015 Spiros Raptis. All rights reserved.
@@ -24,16 +23,19 @@ class MemeCollectionViewController: UICollectionViewController,UICollectionViewD
         
         self.editing = false
         
-        let applicationDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
-        memes = applicationDelegate.memes
+        updateMemes()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
+        updateMemes()
+        self.collectionView?.reloadData()
+    }
 
+    //Load the memes from App Delegate
+    func updateMemes(){
         let applicationDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
         memes = applicationDelegate.memes
-        self.collectionView?.reloadData()
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -43,7 +45,7 @@ class MemeCollectionViewController: UICollectionViewController,UICollectionViewD
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("MemeCollectionViewCell", forIndexPath: indexPath) as MemeCollectionViewCell
         let meme = self.memes[indexPath.row]
-        if(self.editing){
+        if(self.editing){// If the edit mode is on display the delete icon.
             cell.deleteImageView.hidden = false
         }else{
             cell.deleteImageView.hidden = true
@@ -54,13 +56,14 @@ class MemeCollectionViewController: UICollectionViewController,UICollectionViewD
         
         return cell
     }
-
+    
+    //It is used for deletion and viewing the meme. When in the edit mode we delete the saved Meme on Select.
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath:NSIndexPath){
-        if(!self.editing){
+        if(!self.editing){//Display Meme
             let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeDetailViewController")! as MemeDetailViewController
             detailController.meme   = self.memes[indexPath.row]
             self.navigationController!.pushViewController(detailController, animated: true)
-        }else{
+        }else{//Delete meme
             let applicationDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
             memes.removeAtIndex(indexPath.row)
             
@@ -78,7 +81,7 @@ class MemeCollectionViewController: UICollectionViewController,UICollectionViewD
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
         return CGFloat(10.0)
     }
-    
+    //sets the border of the collection cell
     func collectionView(collectionView: UICollectionView!,
         layout collectionViewLayout: UICollectionViewLayout!,
         insetForSectionAtIndex section: Int) -> UIEdgeInsets {
@@ -86,13 +89,7 @@ class MemeCollectionViewController: UICollectionViewController,UICollectionViewD
     }
 
     func anotherMeme(){
-//        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("ViewController")! as ViewController
-        //        self.navigationController?.popToViewController(controller, animated: true)
-        //        println(self.navigationController?.viewControllers)
-        
-//        self.dismissViewControllerAnimated(true, completion: nil)
-//        self.navigationController!.pushViewController(controller, animated: true)
-        
+
         self.dismissViewControllerAnimated(true, completion: nil)
         self.performSegueWithIdentifier("anotherMeme", sender: self)
         
@@ -101,7 +98,7 @@ class MemeCollectionViewController: UICollectionViewController,UICollectionViewD
         applicationDelegate.editorMeme = Meme(topText: "TOP", bottomText: "BOTTOM", image: UIImage(), memedImage: UIImage())
 
     }
-    
+    //Toggles the edit and reloads the data for the delete icon to be displayed or hid.
     func edit(){
         self.editing = !self.editing
         self.collectionView?.reloadData()

@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MemeMe/EditorViewController.swift"
-            timestampString = "448528657.740103"
+            timestampString = "448542475.139288"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
             landmarkName = "scaleImage(_:)"
             landmarkType = "5">
          </BreakpointContent>

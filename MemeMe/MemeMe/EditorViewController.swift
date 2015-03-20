@@ -1,6 +1,5 @@
 //
 //  EditorViewController
-//  imagepicker
 //
 //  Created by Spiros Raptis on 09/03/2015.
 //  Copyright (c) 2015 Spiros Raptis. All rights reserved.
@@ -39,7 +38,7 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
         tapRec.delegate = self
         view.addGestureRecognizer(tapRec)
 
-        pickImageButton = UIBarButtonItem(title: "Album", style: .Done, target: self, action: "pickAnImage:")
+        pickImageButton = UIBarButtonItem(title: "Album", style: .Done, target: self, action: "pickAnImageFromAlbum:")
         cameraButton = UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: "pickAnImageFromCamera:")
         shareButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "share")
         cancelButton = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancel")
@@ -66,7 +65,7 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
         }
     }
     
-    //For Image croping
+    //For Image croping. Pinching Zooms in or out to crop the image.
     @IBAction func scaleImage(sender: UIPinchGestureRecognizer) {
         self.imagePickerView.transform = CGAffineTransformScale(self.imagePickerView.transform, sender.scale, sender.scale)
         sender.scale = 1
@@ -79,7 +78,7 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
         //get the current meme for editing purposes
         let applicationDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
         self.meme = applicationDelegate.editorMeme
-
+        
 
         self.navigationItem.leftBarButtonItem = shareButton
         topTextField.text = meme.topText
@@ -105,21 +104,17 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
     }
     
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
+    //Camera button Action
     @IBAction func pickAnImageFromCamera(sender: AnyObject) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         if (UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)){
             imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
             self.presentViewController(imagePicker, animated: true, completion: nil)
-        }    }
-    
-    @IBAction func pickAnImage(sender: AnyObject) {
+        }
+    }
+    //Album button.
+    @IBAction func pickAnImageFromAlbum(sender: AnyObject) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
@@ -150,6 +145,7 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
         }
         return true
     }
+    
     //At the begining of Editing if the default text is written We reset it
     func textFieldDidBeginEditing(textField: UITextField) {
         if textField.text == "TOP" || textField.text == "BOTTOM"{
@@ -179,19 +175,19 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
     }
     
     func keyboardWillShow(notification: NSNotification) {
-        if(keyboardHidden ){
+        if(keyboardHidden ){ //If the keyboard was not hidden.(e.g. we change the type of the keyboard on currently displayed keyboard view) there's no need to change the origin.
             self.view.frame.origin.y -= getKeyboardHeight(notification)
             keyboardHidden = false
         }
     }
     
     func keyboardWillHide(notification: NSNotification) {
-        if(!keyboardHidden){
+        if(!keyboardHidden){//If the keyboard was hidden.(e.g. we change the type of the keyboard on currently displayed keyboard view) there's no need to change the origin.
             self.view.frame.origin.y += getKeyboardHeight(notification)
             keyboardHidden = true
         }
     }
-    
+    //Generates the memed image by grabbing a "screenshot" of the screen
     func generateMemedImage() -> UIImage {
         
         //Hide toolbar and navbar
@@ -212,7 +208,8 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
         
         return memedImage
     }
-
+    
+    //Function to save the Meme.It is used only by the share method. It saves the Meme to appdelegate
     func save() {
         //Create the meme
         memedImage = generateMemedImage()
@@ -222,23 +219,21 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
         
     }
     
+    //Action for the share button. It displayes the activity view and saves the Meme.
     func share(){
         save()
         let objectsToShare = [UIActivityTypePostToFacebook,UIActivityTypePostToTwitter,UIActivityTypeMessage,UIActivityTypeSaveToCameraRoll]
         let activity = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
         activity.completionWithItemsHandler = { (activity, success, items, error) in
-                let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeTabBarController")! as MemeTabBarController
+                let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeTabBarController")! as UITabBarController
             
-//            self.navigationController?.dismissViewControllerAnimated(true, completion: nil)//Dismiss the First-root controller. Clean slate next time.
             self.navigationController!.presentViewController(detailController, animated: true, completion: nil)
-
             self.navigationController?.setNavigationBarHidden(false, animated: true)
-            self.navigationController?.setToolbarHidden(true, animated: false)
+            self.navigationController?.setToolbarHidden(true, animated: false) //Set the toolbar hidden so as to enable the table view's toolbar.
             
             //Reset Editor View.
             let applicationDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
             applicationDelegate.editorMeme = Meme(topText: "TOP", bottomText: "BOTTOM", image: UIImage(), memedImage: UIImage())
-            
         }
 
         self.presentViewController(activity, animated: true, completion:nil)
@@ -249,9 +244,10 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
         println("tapped")
     }
     
+    //Cancel button action. It goes to the Tabbar(table and collection) view
     func cancel(){
         self.navigationController?.dismissViewControllerAnimated(true, completion: nil)//Dismiss the First-root controller.
-        let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeTabBarController")! as MemeTabBarController
+        let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeTabBarController")! as UITabBarController
         self.navigationController?.presentViewController(detailController, animated: true,completion:nil)
     }
     

@@ -1,6 +1,5 @@
 //
 //  MemeTableViewController.swift
-//  imagepicker
 //
 //  Created by Spiros Raptis on 11/03/2015.
 //  Copyright (c) 2015 Spiros Raptis. All rights reserved.
@@ -22,17 +21,22 @@ class MemeTableViewController: UITableViewController,UITableViewDataSource{
         self.navigationItem.hidesBackButton = true
         self.navigationItem.rightBarButtonItem = plusButton
         self.navigationItem.leftBarButtonItem = editButton
-        let applicationDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
-        memes = applicationDelegate.memes
+        updateMemes()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
+        updateMemes()
+        self.editing = false
+        self.tableView.reloadData() // Reload Data so if a delete was done to get the new data.
+    }
+    
+    //Load the memes from App Delegate
+    func updateMemes(){
         let applicationDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
         memes = applicationDelegate.memes
-        self.editing = false
-        self.tableView.reloadData()
     }
+
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return memes.count
@@ -40,7 +44,8 @@ class MemeTableViewController: UITableViewController,UITableViewDataSource{
 
     override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true}
-
+    
+    //Setup the display of the cell
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("tableViewCell") as UITableViewCell
         let meme = self.memes[indexPath.row]
@@ -52,6 +57,7 @@ class MemeTableViewController: UITableViewController,UITableViewDataSource{
         return cell
     }
 
+    //On select display the Meme in Meme Detail View
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeDetailViewController")! as MemeDetailViewController
         detailController.meme   = self.memes[indexPath.row]
@@ -77,21 +83,16 @@ class MemeTableViewController: UITableViewController,UITableViewDataSource{
     
     //Button Action. Goes to the Edit View to create another meme.
     func anotherMeme(){
-//        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)//Dismiss the First-root controller. Clean slate next time.
-//        let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("ViewController")! as ViewController
-//        
-//        self.navigationController?.pushViewController(detailController, animated: true)
-//        
         self.dismissViewControllerAnimated(true, completion: nil)
         self.performSegueWithIdentifier("anotherMeme", sender: self)
 
     }
     
-    
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
     }
     
+    //For deleting the Meme
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         let applicationDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
         memes.removeAtIndex(indexPath.row)
