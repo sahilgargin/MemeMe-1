@@ -76,7 +76,7 @@
                     </connections>
                 </pinchGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1190" y="-952"/>
+            <point key="canvasLocation" x="2582" y="-408"/>
         </scene>
         <!--Table View-->
         <scene sceneID="iQR-bv-9yU">
@@ -113,14 +113,14 @@
                             <outlet property="delegate" destination="HnU-dv-xXz" id="KTb-Lp-Eub"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="bZi-VE-4Fd"/>
+                    <navigationItem key="navigationItem" title="Sent Memes" id="bZi-VE-4Fd"/>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="anotherMeme" id="aFR-49-DLE"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cjf-Cs-uEh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2423" y="39"/>
+            <point key="canvasLocation" x="1359" y="703"/>
         </scene>
         <!--Sent Memes-->
         <scene sceneID="1Cj-2A-7z2">
@@ -139,7 +139,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Mj-v9-oSF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-39" y="812"/>
+            <point key="canvasLocation" x="-415" y="484"/>
         </scene>
         <!--Table View-->
         <scene sceneID="mb8-5S-zXO">
@@ -176,7 +176,7 @@
             </objects>
             <point key="canvasLocation" x="67" y="-507"/>
         </scene>
-        <!--Meme Collection View Controller-->
+        <!--Sent Memes-->
         <scene sceneID="YLU-tZ-mH9">
             <objects>
                 <collectionViewController id="d7q-9g-hgt" customClass="MemeCollectionViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
@@ -229,14 +229,14 @@
                             <outlet property="delegate" destination="d7q-9g-hgt" id="6NY-u4-hsg"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" id="4r9-fM-aHr"/>
+                    <navigationItem key="navigationItem" title="Sent Memes" id="4r9-fM-aHr"/>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="anotherMeme" id="tma-gt-zIq"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3MU-dd-MX2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1641" y="708"/>
+            <point key="canvasLocation" x="3105" y="1148"/>
         </scene>
         <!--Collection VIew-->
         <scene sceneID="Jxu-Tz-aeD">
@@ -255,7 +255,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hII-gv-ynd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="779" y="1320"/>
+            <point key="canvasLocation" x="323" y="1264"/>
         </scene>
         <!--Meme Detail View-->
         <scene sceneID="vU5-a6-0AM">
@@ -289,7 +289,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="314-jH-qaf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3541" y="-686"/>
+            <point key="canvasLocation" x="1549" y="-1630"/>
         </scene>
         <!--Meme-->
         <scene sceneID="gxm-Ca-p9A">
@@ -307,7 +307,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="62k-IG-5Aj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2809" y="862"/>
+            <point key="canvasLocation" x="793" y="-1915"/>
         </scene>
     </scenes>
     <resources>
@@ -316,6 +316,6 @@
         <image name="table_30x30" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="oPt-Jd-zNJ"/>
+        <segue reference="aFR-49-DLE"/>
     </inferredMetricsTieBreakers>
 </document>

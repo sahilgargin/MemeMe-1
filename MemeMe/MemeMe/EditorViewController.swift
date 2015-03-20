@@ -23,9 +23,12 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
     var memedImage = UIImage()
     let tapRec = UITapGestureRecognizer()
     var meme:Meme!
-
+    var keyboardHidden = true //View starts with the keyboard hidden
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         var fixedWidth = self.view.frame.size.width;
         var fixedHeight = self.view.frame.size.height;
         
@@ -174,13 +177,19 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
         let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as NSValue // of CGRect
         return keyboardSize.CGRectValue().height
     }
-    //TODO:Optimize. make theee two one function
+    
     func keyboardWillShow(notification: NSNotification) {
-        self.view.frame.origin.y -= getKeyboardHeight(notification)
+        if(keyboardHidden ){
+            self.view.frame.origin.y -= getKeyboardHeight(notification)
+            keyboardHidden = false
+        }
     }
     
     func keyboardWillHide(notification: NSNotification) {
-        self.view.frame.origin.y += getKeyboardHeight(notification)
+        if(!keyboardHidden){
+            self.view.frame.origin.y += getKeyboardHeight(notification)
+            keyboardHidden = true
+        }
     }
     
     func generateMemedImage() -> UIImage {
