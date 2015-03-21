@@ -1,6 +1,6 @@
 //
 //  EditorViewController
-//
+//  The Editor View to create A Meme or Edit one.
 //  Created by Spiros Raptis on 09/03/2015.
 //  Copyright (c) 2015 Spiros Raptis. All rights reserved.
 //
@@ -23,7 +23,7 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
     let tapRec = UITapGestureRecognizer()
     var meme:Meme!
     var keyboardHidden = true //View starts with the keyboard hidden
-    
+    var navandtoolhidden = false // variable to keep when the toolbar and navbar are hidden
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,8 +32,9 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
         var fixedHeight = self.view.frame.size.height;
         
         self.navigationController?.view.backgroundColor = UIColor.whiteColor() //When zooming the background should be white.
-        
         bottomTextField.sizeToFit()
+        
+        //Manual add a tap gesture recognizer
         tapRec.addTarget(self, action: "tapped")
         tapRec.delegate = self
         view.addGestureRecognizer(tapRec)
@@ -79,7 +80,7 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
         let applicationDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
         self.meme = applicationDelegate.editorMeme
         
-
+        //redraw current meme image
         self.navigationItem.leftBarButtonItem = shareButton
         topTextField.text = meme.topText
         bottomTextField.text = meme.bottomText
@@ -123,6 +124,7 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            //setup editor image and current editor meme.
             self.imagePickerView.image = image
             meme.image = image
             meme.topText = self.topTextField.text
@@ -191,8 +193,7 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
     func generateMemedImage() -> UIImage {
         
         //Hide toolbar and navbar
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
-        self.navigationController?.setToolbarHidden(true, animated: false)
+        hide(true,animated: false)
 
         // Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
@@ -203,9 +204,8 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
         UIGraphicsEndImageContext()
         
         // Show toolbar and navbar
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
-        self.navigationController?.setToolbarHidden(false, animated: false)
-        
+        hide(false,animated: false)
+    
         return memedImage
     }
     
@@ -240,8 +240,21 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
 
     }
     
+    //hide toolbar and navigation bar when tapped
     func tapped(){
-        println("tapped")
+        if(navandtoolhidden){
+            hide(false,animated: true)
+            navandtoolhidden = false
+        }else{
+            hide(true,animated: true)
+            navandtoolhidden = true
+        }
+    }
+    
+    //hide toolbar and navigation bar
+    func hide(flag:Bool,animated:Bool){
+        self.navigationController?.setNavigationBarHidden(flag, animated: animated)
+        self.navigationController?.setToolbarHidden(flag, animated: animated)
     }
     
     //Cancel button action. It goes to the Tabbar(table and collection) view

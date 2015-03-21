@@ -1,6 +1,6 @@
 //
 //  MemeCollectionViewController.swift
-//
+//  The Collection View of Memes
 //  Created by Spiros Raptis on 11/03/2015.
 //  Copyright (c) 2015 Spiros Raptis. All rights reserved.
 //
@@ -42,6 +42,7 @@ class MemeCollectionViewController: UICollectionViewController,UICollectionViewD
         return memes.count
     }
     
+    //Select an cell item. When edit mode is on select deletes the meme. When off, displays Meme Detail View
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("MemeCollectionViewCell", forIndexPath: indexPath) as MemeCollectionViewCell
         let meme = self.memes[indexPath.row]
@@ -78,8 +79,9 @@ class MemeCollectionViewController: UICollectionViewController,UICollectionViewD
             return CGFloat(10.0)
     }
     
+    //Distance between cells in a row
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
-        return CGFloat(10.0)
+        return CGFloat(-8.0)
     }
     //sets the border of the collection cell
     func collectionView(collectionView: UICollectionView!,
@@ -87,17 +89,17 @@ class MemeCollectionViewController: UICollectionViewController,UICollectionViewD
         insetForSectionAtIndex section: Int) -> UIEdgeInsets {
             return UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
     }
-
+    
+    //Action to create another Meme
     func anotherMeme(){
-
         self.dismissViewControllerAnimated(true, completion: nil)
         self.performSegueWithIdentifier("anotherMeme", sender: self)
         
         //Reset Editor View.
         let applicationDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
         applicationDelegate.editorMeme = Meme(topText: "TOP", bottomText: "BOTTOM", image: UIImage(), memedImage: UIImage())
-
     }
+    
     //Toggles the edit and reloads the data for the delete icon to be displayed or hid.
     func edit(){
         self.editing = !self.editing

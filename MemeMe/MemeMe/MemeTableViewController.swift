@@ -1,6 +1,6 @@
 //
 //  MemeTableViewController.swift
-//
+//  The Table view of Memes
 //  Created by Spiros Raptis on 11/03/2015.
 //  Copyright (c) 2015 Spiros Raptis. All rights reserved.
 //
@@ -41,7 +41,8 @@ class MemeTableViewController: UITableViewController,UITableViewDataSource{
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return memes.count
     }
-
+    
+    //Asks the data source whether a given row can be moved to another location in the table view.
     override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true}
     

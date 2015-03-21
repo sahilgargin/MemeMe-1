@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="f0k-RS-yvs">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="f0k-RS-yvs">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Editor View Controller-->
+        <!--Meme Editor-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController storyboardIdentifier="ViewController" id="BYZ-38-t0r" customClass="EditorViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
@@ -17,23 +17,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView autoresizesSubviews="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4F8-2h-BUW">
+                            <imageView autoresizesSubviews="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4F8-2h-BUW">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="Pte-X4-ooE" appends="YES" id="wXQ-hf-8AX"/>
                                 </connections>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="BOTTOM" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cvT-b4-MqJ">
-                                <rect key="frame" x="16" y="450" width="568" height="130"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="130" id="HTN-Ef-Bmp"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
-                            </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TOP" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Aoh-hl-rHS">
-                                <rect key="frame" x="16" y="94" width="568" height="130"/>
+                                <rect key="frame" x="16" y="114" width="568" height="130"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="130" id="2me-qa-2KQ"/>
                                 </constraints>
@@ -41,22 +33,30 @@
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="BOTTOM" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cvT-b4-MqJ">
+                                <rect key="frame" x="16" y="440" width="568" height="130"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="130" id="HTN-Ef-Bmp"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Aoh-hl-rHS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="0Ge-O8-rBY"/>
-                            <constraint firstItem="RUA-ND-Ogi" firstAttribute="top" secondItem="cvT-b4-MqJ" secondAttribute="bottom" constant="20" id="2Nk-n5-QYi"/>
+                            <constraint firstItem="RUA-ND-Ogi" firstAttribute="bottom" secondItem="cvT-b4-MqJ" secondAttribute="bottom" constant="30" id="2Nk-n5-QYi"/>
                             <constraint firstItem="Aoh-hl-rHS" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="5bj-eB-0tq"/>
                             <constraint firstAttribute="trailing" secondItem="4F8-2h-BUW" secondAttribute="trailing" id="AjH-Mh-yf3"/>
                             <constraint firstItem="4F8-2h-BUW" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="CVt-b8-giT"/>
                             <constraint firstItem="cvT-b4-MqJ" firstAttribute="leading" secondItem="Aoh-hl-rHS" secondAttribute="leading" id="F88-Tn-TX9"/>
                             <constraint firstItem="Aoh-hl-rHS" firstAttribute="trailing" secondItem="cvT-b4-MqJ" secondAttribute="trailing" id="GJC-nJ-7Dw"/>
-                            <constraint firstItem="Aoh-hl-rHS" firstAttribute="top" secondItem="dmC-9R-7NM" secondAttribute="bottom" constant="30" id="SWu-8H-z4c"/>
+                            <constraint firstItem="Aoh-hl-rHS" firstAttribute="top" secondItem="dmC-9R-7NM" secondAttribute="top" constant="50" id="SWu-8H-z4c"/>
                             <constraint firstItem="Aoh-hl-rHS" firstAttribute="top" secondItem="dmC-9R-7NM" secondAttribute="bottom" constant="8" id="eu9-QN-3Qu"/>
                             <constraint firstItem="Aoh-hl-rHS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="lgb-qP-lVQ"/>
                             <constraint firstItem="4F8-2h-BUW" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="mhl-cs-vZa"/>
                             <constraint firstItem="Aoh-hl-rHS" firstAttribute="centerX" secondItem="4F8-2h-BUW" secondAttribute="centerX" id="tIP-cd-vMA"/>
-                            <constraint firstItem="4F8-2h-BUW" firstAttribute="bottom" secondItem="RUA-ND-Ogi" secondAttribute="top" id="uNq-vt-cZ1"/>
+                            <constraint firstItem="4F8-2h-BUW" firstAttribute="bottom" secondItem="RUA-ND-Ogi" secondAttribute="bottom" id="uNq-vt-cZ1"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -66,7 +66,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="fkN-XC-Zdt"/>
+                    <navigationItem key="navigationItem" title="Meme Editor" id="fkN-XC-Zdt"/>
                     <connections>
                         <outlet property="bottomTextField" destination="cvT-b4-MqJ" id="bC2-bg-YbR"/>
                         <outlet property="imagePickerView" destination="4F8-2h-BUW" id="Tue-c3-K6n"/>
@@ -99,13 +99,13 @@
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="b4S-5K-ZKJ">
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IIy-eV-Ncu">
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -273,15 +273,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QQQ-bM-tER">
+                            <imageView contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QQQ-bM-tER">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <gestureRecognizers/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="QQQ-bM-tER" firstAttribute="bottom" secondItem="uIE-iT-t53" secondAttribute="top" id="2eb-Hl-bYS"/>
+                            <constraint firstItem="QQQ-bM-tER" firstAttribute="bottom" secondItem="uIE-iT-t53" secondAttribute="bottom" id="2eb-Hl-bYS"/>
                             <constraint firstItem="QQQ-bM-tER" firstAttribute="leading" secondItem="hD0-Zi-70R" secondAttribute="leading" id="VdT-kV-yet"/>
-                            <constraint firstItem="QQQ-bM-tER" firstAttribute="top" secondItem="hD0-Zi-70R" secondAttribute="top" id="edt-Sp-Nwg"/>
+                            <constraint firstItem="QQQ-bM-tER" firstAttribute="top" secondItem="hD0-Zi-70R" secondAttribute="topMargin" id="edt-Sp-Nwg"/>
                             <constraint firstAttribute="trailing" secondItem="QQQ-bM-tER" secondAttribute="trailing" id="lX3-th-9k3"/>
                         </constraints>
                     </view>
@@ -293,7 +294,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="314-jH-qaf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1549" y="-1630"/>
+            <point key="canvasLocation" x="1521" y="-1741"/>
         </scene>
         <!--Meme-->
         <scene sceneID="gxm-Ca-p9A">
@@ -320,6 +321,6 @@
         <image name="table_30x30" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="aFR-49-DLE"/>
+        <segue reference="oPt-Jd-zNJ"/>
     </inferredMetricsTieBreakers>
 </document>
