@@ -70,11 +70,14 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
     @IBAction func scaleImage(sender: UIPinchGestureRecognizer) {
         self.imagePickerView.transform = CGAffineTransformScale(self.imagePickerView.transform, sender.scale, sender.scale)
         sender.scale = 1
-
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+
+        // Reset previous scaling of image.
+        self.imagePickerView.transform = CGAffineTransformIdentity
         
         //get the current meme for editing purposes
         let applicationDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
