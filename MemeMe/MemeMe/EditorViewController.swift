@@ -12,21 +12,38 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
     @IBOutlet weak var imagePickerView: UIImageView!
     @IBOutlet weak var topTextField: UITextField!
     @IBOutlet weak var bottomTextField: UITextField!
-
+    //MARK:- Buttons
     var cameraButton = UIBarButtonItem()
     var flexiblespace = UIBarButtonItem()
     var pickImageButton = UIBarButtonItem()
     var shareButton = UIBarButtonItem()
     var cancelButton = UIBarButtonItem()
     
+    //MARK:- Meme data
     var memedImage = UIImage()
-    let tapRec = UITapGestureRecognizer()
     var meme:Meme!
+    
+    //MARK:- Gestures variables
+    let tapRec = UITapGestureRecognizer()
+    let panRec = UIPanGestureRecognizer()
+    var lastLocation:CGPoint = CGPointMake(0, 0){//This variable will keep track of the last position of a user's touch.
+        didSet{
+            self.imagePickerView.center = lastLocation
+        }
+    }
+
+    //MARK:- Keyboard related variables
     var keyboardHidden = true //View starts with the keyboard hidden
-    var navandtoolhidden = false // variable to keep when the toolbar and navbar are hidden
+
+    var navandtoolhidden:Bool = false {// variable to keep when the toolbar and navbar are hidden
+        didSet{
+            hide(navandtoolhidden,animated: true)
+        }
+    }
+    //MARK:-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         var fixedWidth = self.view.frame.size.width;
         var fixedHeight = self.view.frame.size.height;
@@ -38,6 +55,13 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
         tapRec.addTarget(self, action: "tapped")
         tapRec.delegate = self
         view.addGestureRecognizer(tapRec)
+        //Manual add a pan gesture recognizer
+        panRec.addTarget(self, action: "detectPan:")
+        panRec.delegate = self
+        panRec.cancelsTouchesInView = false;
+
+        panRec.delaysTouchesEnded = false
+        view.addGestureRecognizer(panRec)
 
         pickImageButton = UIBarButtonItem(title: "Album", style: .Done, target: self, action: "pickAnImageFromAlbum:")
         cameraButton = UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: "pickAnImageFromCamera:")
@@ -66,19 +90,12 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
         }
     }
     
-    //For Image croping. Pinching Zooms in or out to crop the image.
-    @IBAction func scaleImage(sender: UIPinchGestureRecognizer) {
-        self.imagePickerView.transform = CGAffineTransformScale(self.imagePickerView.transform, sender.scale, sender.scale)
-        sender.scale = 1
-    }
-    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-
         // Reset previous scaling of image.
         self.imagePickerView.transform = CGAffineTransformIdentity
-        
+
         //get the current meme for editing purposes
         let applicationDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
         self.meme = applicationDelegate.editorMeme
@@ -153,14 +170,17 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
     
     //At the begining of Editing if the default text is written We reset it
     func textFieldDidBeginEditing(textField: UITextField) {
+        
         if textField.text == "TOP" || textField.text == "BOTTOM"{
             textField.text = ""
         }
         if textField.isEqual(bottomTextField){
             self.subscribeToKeyboardNotifications()
         }
+        var imagep = self.imagePickerView.center
     }
-    
+
+    //MARK:- KEYBOARD RELATED
     func subscribeToKeyboardNotifications() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:"    , name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:"    , name: UIKeyboardWillHideNotification, object: nil)
@@ -192,6 +212,8 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
             keyboardHidden = true
         }
     }
+    //MARK:-
+    
     //Generates the memed image by grabbing a "screenshot" of the screen
     func generateMemedImage() -> UIImage {
         
@@ -219,7 +241,6 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
         var meme = Meme(topText:topTextField.text!, bottomText: bottomTextField.text!,  image: imagePickerView.image!,  memedImage: memedImage)
         self.meme = meme
         (UIApplication.sharedApplication().delegate as AppDelegate).memes.append(meme)
-        
     }
     
     //Action for the share button. It displayes the activity view and saves the Meme.
@@ -240,24 +261,50 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
         }
 
         self.presentViewController(activity, animated: true, completion:nil)
+        
+    }
+    
+    //MARK:- GESTURES RELATED
 
+    //For Image croping. Pinching Zooms in or out to crop the image.
+    @IBAction func scaleImage(sender: UIPinchGestureRecognizer) {
+        self.imagePickerView.transform = CGAffineTransformScale(self.imagePickerView.transform, sender.scale, sender.scale)
+        sender.scale = 1
     }
     
     //hide toolbar and navigation bar when tapped
     func tapped(){
-        if(navandtoolhidden){
-            hide(false,animated: true)
-            navandtoolhidden = false
-        }else{
-            hide(true,animated: true)
-            navandtoolhidden = true
-        }
+        navandtoolhidden = !navandtoolhidden
     }
     
+    func detectPan(recognizer:UIPanGestureRecognizer) {
+        var translation  = recognizer.translationInView(self.imagePickerView)
+        self.imagePickerView.center = CGPointMake(lastLocation.x + translation.x, lastLocation.y + translation.y)
+    }
+    
+    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+        // Remember original location
+        super.touchesBegan(touches, withEvent: event)
+        lastLocation = self.imagePickerView.center
+    }
+    
+    
+    override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
+        super.touchesEnded(touches, withEvent: event)
+        lastLocation = self.imagePickerView.center
+    }
+    
+    //Update the location(from a pan gesture)
+    func updateLocation(){
+        self.imagePickerView.center = lastLocation //Update the location(from a pan gesture)
+    }
+    
+    //MARK: -
     //hide toolbar and navigation bar
     func hide(flag:Bool,animated:Bool){
         self.navigationController?.setNavigationBarHidden(flag, animated: animated)
         self.navigationController?.setToolbarHidden(flag, animated: animated)
+        self.updateLocation()
     }
     
     //Cancel button action. It goes to the Tabbar(table and collection) view

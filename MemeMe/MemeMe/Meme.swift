@@ -13,7 +13,7 @@ class Meme{
     var bottomText:String!
     var image: UIImage! //Original Image
     var memedImage: UIImage! //The generated image with Top and bottom text.
-    
+
     init(let topText:String,let bottomText:String, let image:UIImage, let memedImage:UIImage){
         self.topText = topText
         self.bottomText = bottomText
