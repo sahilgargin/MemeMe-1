@@ -41,7 +41,7 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
         }
     }
     //MARK:-
-    
+    //MARK:- View related
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -59,7 +59,6 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
         panRec.addTarget(self, action: "detectPan:")
         panRec.delegate = self
         panRec.cancelsTouchesInView = false;
-
         panRec.delaysTouchesEnded = false
         view.addGestureRecognizer(panRec)
 
@@ -93,9 +92,10 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        // Reset previous scaling of image.
+        // Reset previous scaling and position of image.
         self.imagePickerView.transform = CGAffineTransformIdentity
-
+        lastLocation = self.imagePickerView.center
+        
         //get the current meme for editing purposes
         let applicationDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
         self.meme = applicationDelegate.editorMeme
@@ -117,13 +117,12 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
         self.navigationItem.hidesBackButton = true
         self.navigationItem.rightBarButtonItem = cancelButton
         self.toolbarItems = [flexiblespace,cameraButton,flexiblespace,pickImageButton,flexiblespace]
-        
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
     }
-    
+    //MARK:-
 
     //Camera button Action
     @IBAction func pickAnImageFromCamera(sender: AnyObject) {
@@ -134,6 +133,7 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
             self.presentViewController(imagePicker, animated: true, completion: nil)
         }
     }
+    
     //Album button.
     @IBAction func pickAnImageFromAlbum(sender: AnyObject) {
         let imagePicker = UIImagePickerController()
@@ -177,7 +177,6 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
         if textField.isEqual(bottomTextField){
             self.subscribeToKeyboardNotifications()
         }
-        var imagep = self.imagePickerView.center
     }
 
     //MARK:- KEYBOARD RELATED
