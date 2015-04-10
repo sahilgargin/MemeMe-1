@@ -97,7 +97,7 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
         lastLocation = self.imagePickerView.center
         
         //get the current meme for editing purposes
-        let applicationDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+        let applicationDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
         self.meme = applicationDelegate.editorMeme
         
         //redraw current meme image
@@ -194,7 +194,7 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
     
     func getKeyboardHeight(notification: NSNotification) -> CGFloat {
         let userInfo = notification.userInfo
-        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as NSValue // of CGRect
+        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
         return keyboardSize.CGRectValue().height
     }
     
@@ -239,7 +239,7 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
         memedImage = generateMemedImage()
         var meme = Meme(topText:topTextField.text!, bottomText: bottomTextField.text!,  image: imagePickerView.image!,  memedImage: memedImage)
         self.meme = meme
-        (UIApplication.sharedApplication().delegate as AppDelegate).memes.append(meme)
+        (UIApplication.sharedApplication().delegate as! AppDelegate).memes.append(meme)
     }
     
     //Action for the share button. It displayes the activity view and saves the Meme.
@@ -248,14 +248,14 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
         let objectsToShare = [UIActivityTypePostToFacebook,UIActivityTypePostToTwitter,UIActivityTypeMessage,UIActivityTypeSaveToCameraRoll]
         let activity = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
         activity.completionWithItemsHandler = { (activity, success, items, error) in
-                let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeTabBarController")! as UITabBarController
+                let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeTabBarController")! as! UITabBarController
             
             self.navigationController!.presentViewController(detailController, animated: true, completion: nil)
             self.navigationController?.setNavigationBarHidden(false, animated: true)
             self.navigationController?.setToolbarHidden(true, animated: false) //Set the toolbar hidden so as to enable the table view's toolbar.
             
             //Reset Editor View.
-            let applicationDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+            let applicationDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
             applicationDelegate.editorMeme = Meme(topText: "TOP", bottomText: "BOTTOM", image: UIImage(), memedImage: UIImage())
         }
 
@@ -281,14 +281,15 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
         self.imagePickerView.center = CGPointMake(lastLocation.x + translation.x, lastLocation.y + translation.y)
     }
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+    
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         // Remember original location
         super.touchesBegan(touches, withEvent: event)
         lastLocation = self.imagePickerView.center
     }
     
     
-    override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
         super.touchesEnded(touches, withEvent: event)
         lastLocation = self.imagePickerView.center
     }
@@ -309,7 +310,7 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
     //Cancel button action. It goes to the Tabbar(table and collection) view
     func cancel(){
         self.navigationController?.dismissViewControllerAnimated(true, completion: nil)//Dismiss the First-root controller.
-        let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeTabBarController")! as UITabBarController
+        let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeTabBarController")! as! UITabBarController
         self.navigationController?.presentViewController(detailController, animated: true,completion:nil)
     }
     
