@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import CoreData
 class MemeCollectionViewController: UICollectionViewController,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     var memes: [Meme]!
     var plusButton = UIBarButtonItem()
@@ -26,6 +26,10 @@ class MemeCollectionViewController: UICollectionViewController,UICollectionViewD
         updateMemes()
     }
     
+    var sharedContext: NSManagedObjectContext {
+        return CoreDataStackManager.sharedInstance().managedObjectContext!
+    }
+
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         updateMemes()
@@ -97,7 +101,7 @@ class MemeCollectionViewController: UICollectionViewController,UICollectionViewD
         
         //Reset Editor View.
         let applicationDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
-        applicationDelegate.editorMeme = Meme(topText: "TOP", bottomText: "BOTTOM", image: UIImage(), memedImage: UIImage())
+        applicationDelegate.editorMeme = Meme(topText: "TOP", bottomText: "BOTTOM", image: UIImage(), memedImage: UIImage(),context: sharedContext)
     }
     
     //Toggles the edit and reloads the data for the delete icon to be displayed or hid.

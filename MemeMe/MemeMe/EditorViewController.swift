@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 class EditorViewController: UIViewController,UINavigationControllerDelegate,UITextFieldDelegate,UIImagePickerControllerDelegate,UIGestureRecognizerDelegate {
 
@@ -237,11 +238,16 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
     func save() {
         //Create the meme
         memedImage = generateMemedImage()
-        var meme = Meme(topText:topTextField.text!, bottomText: bottomTextField.text!,  image: imagePickerView.image!,  memedImage: memedImage)
+        var meme = Meme(topText:topTextField.text!, bottomText: bottomTextField.text!,  image: imagePickerView.image!,  memedImage: memedImage,context: self.sharedContext)
         self.meme = meme
         (UIApplication.sharedApplication().delegate as! AppDelegate).memes.append(meme)
+        (UIApplication.sharedApplication().delegate as! AppDelegate).save()
     }
     
+    var sharedContext: NSManagedObjectContext {
+        return CoreDataStackManager.sharedInstance().managedObjectContext!
+    }
+
     //Action for the share button. It displayes the activity view and saves the Meme.
     func share(){
         save()
@@ -256,7 +262,7 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
             
             //Reset Editor View.
             let applicationDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
-            applicationDelegate.editorMeme = Meme(topText: "TOP", bottomText: "BOTTOM", image: UIImage(), memedImage: UIImage())
+            applicationDelegate.editorMeme = Meme(topText: "TOP", bottomText: "BOTTOM", image: UIImage(), memedImage: UIImage(),context: self.sharedContext)
         }
 
         self.presentViewController(activity, animated: true, completion:nil)

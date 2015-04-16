@@ -7,18 +7,24 @@
 //
 
 import UIKit
-
+import CoreData
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var memes = [Meme]() //Used to save all of the memes
     //EditorMeme: The current Meme at the Editor View
-    var editorMeme = Meme(topText: "TOP", bottomText: "BOTTOM", image: UIImage(), memedImage: UIImage())
+    
+
+    var editorMeme = Meme(topText: "TOP", bottomText: "BOTTOM", image: UIImage(), memedImage: UIImage(),context: CoreDataStackManager.sharedInstance().managedObjectContext!)
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         return true
+    }
+    
+    func save(){
+        CoreDataStackManager.sharedInstance().saveContext()
     }
 
     func applicationWillResignActive(application: UIApplication) {
