@@ -23,7 +23,8 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
     //MARK:- Meme data
     var memedImage = UIImage()
     var meme:Meme!
-    
+    var temporaryContext: NSManagedObjectContext!
+
     //MARK:- Gestures variables
     let tapRec = UITapGestureRecognizer()
     let panRec = UIPanGestureRecognizer()
@@ -41,6 +42,8 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
             hide(navandtoolhidden,animated: true)
         }
     }
+    
+
     //MARK:-
     //MARK:- View related
     override func viewDidLoad() {
@@ -88,6 +91,12 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
         if(!UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)){
             cameraButton.enabled = false
         }
+        
+        
+        // Set the temporary context
+        temporaryContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.MainQueueConcurrencyType)
+        temporaryContext.persistentStoreCoordinator = sharedContext.persistentStoreCoordinator
+
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -99,7 +108,11 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
         
         //get the current meme for editing purposes
         let applicationDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
-        self.meme = applicationDelegate.editorMeme
+        if let m = applicationDelegate.editorMeme{
+            self.meme = m
+        }else{
+            self.meme = Meme(topText: "TOP", bottomText: "BOTTOM", image: UIImage(), memedImage: UIImage(),context: temporaryContext)
+        }
         
         //redraw current meme image
         self.navigationItem.leftBarButtonItem = shareButton
@@ -146,10 +159,16 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             //setup editor image and current editor meme.
-            self.imagePickerView.image = image
-            meme.image = image
-            meme.topText = self.topTextField.text
-            meme.bottomText = self.bottomTextField.text
+
+//            self.imagePickerView.image = image
+//            meme.image = image
+//            meme.topText = self.topTextField.text
+//            meme.bottomText = self.bottomTextField.text
+            
+            self.meme = Meme(topText:topTextField.text!, bottomText: bottomTextField.text!,  image: image,  memedImage: memedImage,context: sharedContext)
+            let applicationDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
+
+            applicationDelegate.editorMeme = self.meme
         }
 
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -238,8 +257,8 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
     func save() {
         //Create the meme
         memedImage = generateMemedImage()
-        var meme = Meme(topText:topTextField.text!, bottomText: bottomTextField.text!,  image: imagePickerView.image!,  memedImage: memedImage,context: self.sharedContext)
-        self.meme = meme
+
+        self.meme.memedImage = memedImage
         (UIApplication.sharedApplication().delegate as! AppDelegate).memes.append(meme)
         (UIApplication.sharedApplication().delegate as! AppDelegate).save()
     }
@@ -262,7 +281,7 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
             
             //Reset Editor View.
             let applicationDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
-            applicationDelegate.editorMeme = Meme(topText: "TOP", bottomText: "BOTTOM", image: UIImage(), memedImage: UIImage(),context: self.sharedContext)
+            applicationDelegate.editorMeme = Meme(topText: "TOP", bottomText: "BOTTOM", image: UIImage(), memedImage: UIImage(),context: self.temporaryContext)
         }
 
         self.presentViewController(activity, animated: true, completion:nil)

@@ -15,17 +15,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var memes = [Meme]() //Used to save all of the memes
     //EditorMeme: The current Meme at the Editor View
     
+    var temporaryContext: NSManagedObjectContext!
 
-    var editorMeme = Meme(topText: "TOP", bottomText: "BOTTOM", image: UIImage(), memedImage: UIImage(),context: CoreDataStackManager.sharedInstance().managedObjectContext!)
+    var editorMeme:Meme!
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         return true
     }
     
+    var sharedContext: NSManagedObjectContext {
+        return CoreDataStackManager.sharedInstance().managedObjectContext!
+    }
+
     func save(){
         CoreDataStackManager.sharedInstance().saveContext()
     }
+    
+    func fetchAllMemes() -> [Meme] {
+        let error: NSErrorPointer = nil
+        
+        // Create the Fetch Request
+        let fetchRequest = NSFetchRequest(entityName: "Meme")
+        
+        // Execute the Fetch Request
+        let results = sharedContext.executeFetchRequest(fetchRequest, error: error)
+        
+        // Check for Errors
+        if error != nil {
+            println("Error in fectchAllActors(): \(error)")
+        }
+        
+        // Return the results, cast to an array of Person objects
+        return results as! [Meme]
+    }
+
 
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -43,6 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        
     }
 
     func applicationWillTerminate(application: UIApplication) {

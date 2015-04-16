@@ -125,4 +125,17 @@ class CoreDataStackManager {
             }
         }
     }
+    
+    func deleteObject(var meme:Meme){
+        if let context = self.managedObjectContext {
+            
+            var error: NSError? = nil
+            context.deleteObject(meme)
+            if context.hasChanges && !context.save(&error) {
+                NSLog("Unresolved error \(error), \(error!.userInfo)")
+                abort()
+            }
+        }
+        
+    }
 }

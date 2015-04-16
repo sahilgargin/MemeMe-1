@@ -8,10 +8,11 @@
 import UIKit
 import CoreData
 class MemeCollectionViewController: UICollectionViewController,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
-    var memes: [Meme]!
+    var memes =  [Meme]()
     var plusButton = UIBarButtonItem()
     var editButton = UIBarButtonItem()
-    
+    var temporaryContext: NSManagedObjectContext!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         plusButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "anotherMeme")
@@ -23,6 +24,12 @@ class MemeCollectionViewController: UICollectionViewController,UICollectionViewD
         
         self.editing = false
         
+        let sharedContext = CoreDataStackManager.sharedInstance().managedObjectContext!
+        
+        // Set the temporary context
+        temporaryContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.MainQueueConcurrencyType)
+        temporaryContext.persistentStoreCoordinator = sharedContext.persistentStoreCoordinator
+
         updateMemes()
     }
     
@@ -39,7 +46,10 @@ class MemeCollectionViewController: UICollectionViewController,UICollectionViewD
     //Load the memes from App Delegate
     func updateMemes(){
         let applicationDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
-        memes = applicationDelegate.memes
+        
+        memes = applicationDelegate.fetchAllMemes()
+        //        let applicationDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
+        //        memes = applicationDelegate.memes
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -70,9 +80,9 @@ class MemeCollectionViewController: UICollectionViewController,UICollectionViewD
             self.navigationController!.pushViewController(detailController, animated: true)
         }else{//Delete meme
             let applicationDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
-            memes.removeAtIndex(indexPath.row)
+            CoreDataStackManager.sharedInstance().deleteObject(memes.removeAtIndex(indexPath.row))
+
             
-            applicationDelegate.memes = memes
             self.collectionView?.reloadData()
         }
     }
@@ -101,7 +111,7 @@ class MemeCollectionViewController: UICollectionViewController,UICollectionViewD
         
         //Reset Editor View.
         let applicationDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
-        applicationDelegate.editorMeme = Meme(topText: "TOP", bottomText: "BOTTOM", image: UIImage(), memedImage: UIImage(),context: sharedContext)
+        applicationDelegate.editorMeme = Meme(topText: "TOP", bottomText: "BOTTOM", image: UIImage(), memedImage: UIImage(),context: temporaryContext)
     }
     
     //Toggles the edit and reloads the data for the delete icon to be displayed or hid.

@@ -9,10 +9,11 @@ import UIKit
 import CoreData
 
 class MemeTableViewController: UITableViewController,UITableViewDataSource{
-    var memes: [Meme]!
+    var memes =  [Meme]()
     var plusButton = UIBarButtonItem()
     var editButton = UIBarButtonItem()
-    
+    var temporaryContext: NSManagedObjectContext!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,7 +24,13 @@ class MemeTableViewController: UITableViewController,UITableViewDataSource{
         self.navigationItem.rightBarButtonItem = plusButton
         self.navigationItem.leftBarButtonItem = editButton
         updateMemes()
-
+        
+        let sharedContext = CoreDataStackManager.sharedInstance().managedObjectContext!
+        
+        // Set the temporary context
+        temporaryContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.MainQueueConcurrencyType)
+        temporaryContext.persistentStoreCoordinator = sharedContext.persistentStoreCoordinator
+        memes = fetchAllMemes()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -58,7 +65,9 @@ class MemeTableViewController: UITableViewController,UITableViewDataSource{
     
     //Load the memes from App Delegate
     func updateMemes(){
-        memes = fetchAllMemes()
+        let applicationDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
+
+        memes = applicationDelegate.fetchAllMemes()
 //        let applicationDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
 //        memes = applicationDelegate.memes
     }
@@ -103,7 +112,7 @@ class MemeTableViewController: UITableViewController,UITableViewDataSource{
             if let a = segue.destinationViewController as? EditorViewController{
                 //Reset Editor View.
                 let applicationDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
-                applicationDelegate.editorMeme = Meme(topText: "TOP", bottomText: "BOTTOM", image: UIImage(), memedImage: UIImage(),context: sharedContext)
+                applicationDelegate.editorMeme = Meme(topText: "TOP", bottomText: "BOTTOM", image: UIImage(), memedImage: UIImage(),context: temporaryContext)
             }
         }
     }
@@ -122,9 +131,9 @@ class MemeTableViewController: UITableViewController,UITableViewDataSource{
     //For deleting the Meme
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         let applicationDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
-        memes.removeAtIndex(indexPath.row)
-        applicationDelegate.memes = []
-        applicationDelegate.save()
+        CoreDataStackManager.sharedInstance().deleteObject(memes.removeAtIndex(indexPath.row))
+        println(applicationDelegate.fetchAllMemes())
+        
         self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
     }
     
