@@ -45,8 +45,8 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var fixedWidth = self.view.frame.size.width;
-        var fixedHeight = self.view.frame.size.height;
+        _ = self.view.frame.size.width;
+        _ = self.view.frame.size.height;
         
         self.navigationController?.view.backgroundColor = UIColor.whiteColor() //When zooming the background should be white.
         bottomTextField.sizeToFit()
@@ -142,7 +142,7 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
         self.presentViewController(imagePicker, animated: true, completion: nil)
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             //setup editor image and current editor meme.
             self.imagePickerView.image = image
@@ -237,7 +237,7 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
     func save() {
         //Create the meme
         memedImage = generateMemedImage()
-        var meme = Meme(topText:topTextField.text!, bottomText: bottomTextField.text!,  image: imagePickerView.image!,  memedImage: memedImage)
+        let meme = Meme(topText:topTextField.text!, bottomText: bottomTextField.text!,  image: imagePickerView.image!,  memedImage: memedImage)
         self.meme = meme
         (UIApplication.sharedApplication().delegate as! AppDelegate).memes.append(meme)
     }
@@ -245,10 +245,10 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
     //Action for the share button. It displayes the activity view and saves the Meme.
     func share(){
         save()
-        let objectsToShare = [UIActivityTypePostToFacebook,UIActivityTypePostToTwitter,UIActivityTypeMessage,UIActivityTypeSaveToCameraRoll]
+        _ = [UIActivityTypePostToFacebook,UIActivityTypePostToTwitter,UIActivityTypeMessage,UIActivityTypeSaveToCameraRoll]
         let activity = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
         activity.completionWithItemsHandler = { (activity, success, items, error) in
-                let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeTabBarController")! as! UITabBarController
+                let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeTabBarController") as! UITabBarController
             
             self.navigationController!.presentViewController(detailController, animated: true, completion: nil)
             self.navigationController?.setNavigationBarHidden(false, animated: true)
@@ -277,19 +277,19 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
     }
     
     func detectPan(recognizer:UIPanGestureRecognizer) {
-        var translation  = recognizer.translationInView(self.imagePickerView)
+        let translation  = recognizer.translationInView(self.imagePickerView)
         self.imagePickerView.center = CGPointMake(lastLocation.x + translation.x, lastLocation.y + translation.y)
     }
     
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         // Remember original location
         super.touchesBegan(touches, withEvent: event)
         lastLocation = self.imagePickerView.center
     }
     
     
-    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesEnded(touches, withEvent: event)
         lastLocation = self.imagePickerView.center
     }
@@ -310,7 +310,7 @@ class EditorViewController: UIViewController,UINavigationControllerDelegate,UITe
     //Cancel button action. It goes to the Tabbar(table and collection) view
     func cancel(){
         self.navigationController?.dismissViewControllerAnimated(true, completion: nil)//Dismiss the First-root controller.
-        let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeTabBarController")! as! UITabBarController
+        let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeTabBarController") as! UITabBarController
         self.navigationController?.presentViewController(detailController, animated: true,completion:nil)
     }
     

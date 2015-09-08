@@ -37,7 +37,7 @@ class MemeDetailViewController: UIViewController,UINavigationControllerDelegate,
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "edit"{
-            if let a = segue.destinationViewController as? EditorViewController{
+            if let _ = segue.destinationViewController as? EditorViewController{
                 let applicationDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
                 applicationDelegate.editorMeme = self.meme // the editor meme is updated so when we go back to Editor View we display the selected meme to edit
                 }

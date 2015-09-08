@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MemeCollectionViewController: UICollectionViewController,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
+class MemeCollectionViewController: UICollectionViewController,UICollectionViewDelegateFlowLayout {
     var memes: [Meme]!
     var plusButton = UIBarButtonItem()
     var editButton = UIBarButtonItem()
@@ -61,7 +61,7 @@ class MemeCollectionViewController: UICollectionViewController,UICollectionViewD
     //It is used for deletion and viewing the meme. When in the edit mode we delete the saved Meme on Select.
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath:NSIndexPath){
         if(!self.editing){//Display Meme
-            let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeDetailViewController")! as! MemeDetailViewController
+            let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeDetailViewController") as! MemeDetailViewController
             detailController.meme   = self.memes[indexPath.row]
             self.navigationController!.pushViewController(detailController, animated: true)
         }else{//Delete meme

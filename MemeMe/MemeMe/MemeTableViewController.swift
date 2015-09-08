@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MemeTableViewController: UITableViewController,UITableViewDataSource{
+class MemeTableViewController: UITableViewController{
     var memes: [Meme]!
     var plusButton = UIBarButtonItem()
     var editButton = UIBarButtonItem()
@@ -48,7 +48,11 @@ class MemeTableViewController: UITableViewController,UITableViewDataSource{
     
     //Setup the display of the cell
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("tableViewCell")as! UITableViewCell
+        
+        
+        let cell:UITableViewCell = tableView.dequeueReusableCellWithIdentifier("tableViewCell")!
+        
+        
         let meme = self.memes[indexPath.row]
         // Set the name and image
         cell.textLabel?.text = meme.topText! + "-" + meme.bottomText!
@@ -60,21 +64,21 @@ class MemeTableViewController: UITableViewController,UITableViewDataSource{
 
     //On select display the Meme in Meme Detail View
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeDetailViewController")! as! MemeDetailViewController
+        let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeDetailViewController") as! MemeDetailViewController
         detailController.meme   = self.memes[indexPath.row]
         
         self.navigationController!.pushViewController(detailController, animated: true)
     }
     
     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-        var itemToMove = memes[fromIndexPath.row]
+        let itemToMove = memes[fromIndexPath.row]
         memes.removeAtIndex(fromIndexPath.row)
         memes.insert(itemToMove, atIndex: toIndexPath.row)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "anotherMeme"{
-            if let a = segue.destinationViewController as? EditorViewController{
+            if let _ = segue.destinationViewController as? EditorViewController{
                 //Reset Editor View.
                 let applicationDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
                 applicationDelegate.editorMeme = Meme(topText: "TOP", bottomText: "BOTTOM", image: UIImage(), memedImage: UIImage())
